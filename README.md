@@ -10,7 +10,7 @@ Installing it on a machine links these directories into whatever tool is on that
 
 > Set up my workflow from this repo.
 
-It reads [AGENTS.md](AGENTS.md) and does the rest. It links the skills into the tools it finds, installs the shared policy, backs up whatever was already there, and reports what it did. It works in Claude Code, the ChatGPT app, or anything else that can read files and run `git`.
+It reads [AGENTS.md](AGENTS.md) and does the rest. It links the skills into the tools it finds, installs the shared policy, backs up whatever was already there, and reports what it did. It works in Claude Code, the ChatGPT app, Pi, or anything else that can read files and run `git`.
 
 **In a project.** From inside that repo, tell an agent:
 
