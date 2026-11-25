@@ -1,5 +1,3 @@
 interface:
   display_name: "Plan With Me"
   short_description: "Interview a plan to death, then record what was decided"
-policy:
-  allow_implicit_invocation: false

@@ -61,4 +61,4 @@ Write only what the interview actually settled. Don't backfill the whole domain,
 
 ## Next step
 
-Say what the user can do next, in one line: `/to-spec` to turn this conversation into a spec on the issue tracker, or `/prototype` first if a question survived the interview only because nobody has seen it run yet.
+Say what the user can do next, in one line: `/to-spec` to turn this conversation into a spec on the issue tracker, or, if a `prototype` skill is installed, `/prototype` first when a question survived the interview only because nobody has seen it run yet.

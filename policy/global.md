@@ -46,7 +46,7 @@ Your context is re-sent on every turn, so the cost of a session is roughly its t
 
 Tickets carry `Effort: medium` or `Effort: high` (the rule is in each repo's `docs/agents/conventions.md`). Map that to how much reasoning the sub-agent doing it gets.
 
-In Claude Code, that means the sub-agent type: `implementer-high` for a ticket marked `Effort: high` and for the fix-up after `code-review`; `implementer-medium` for `Effort: medium`, for a ticket with no effort line, and for merger sub-agents. In other tools, map it to that tool's reasoning-effort setting.
+In Claude Code, that means the sub-agent type: `implementer-high` for a ticket marked `Effort: high` and for the fix-up after `code-review`; `implementer-medium` for `Effort: medium`, for a ticket with no effort line, and for merger sub-agents. This repo does not ship those two types. They are defined per machine in `~/.claude/agents/`, so on a machine without them, use the general-purpose sub-agent with its effort set to match. In other tools, map it to that tool's reasoning-effort setting.
 
 ## Clean up after yourself
 
