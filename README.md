@@ -8,7 +8,7 @@ Installing it on a machine links these directories into whatever tool is on that
 
 I recommend you go through the repo and tailor it to meet your needs and preferences. There are two places you can look first to get a high level understanding of the workflow.
 
-1. [policy/global.md](https://github.com/DBordeleau/skills/blob/master/policy/global.md) prevents agents from authoring commits, PRs, issues, comments. Everything on GitHub will show up as you. In my projects I prefer people take ownership of their PRs even if they were implemented by agents. It also enforces the use of conventional commits and branch naming.
+1. [policy/global.md](https://github.com/DBordeleau/skills/blob/master/policy/global.md) prevents agents from authoring commits, PRs, issues, comments. Everything on GitHub will show up as you. In my projects I prefer people take ownership of their PRs even if they were implemented by agents. It also enforces branch naming, `<type>/<issue>-<slug>` with a conventional type and the issue number, and keeps those prefixes off commit subjects.
 2. **Read [WORKFLOW.md](WORKFLOW.md) to understand the intended way to use the skills to implement a new feature from scratch.** You may wish to change the extent to which you are involved in the loop. All of the top level skills like /plan-with-me are meant to be invoked by a human. Implementations are handled autonomously by the orchestrator agent, but it's important to understand that this workflow teaches agents to communicate with humans and other agents differently. 
 
 ## Getting started
