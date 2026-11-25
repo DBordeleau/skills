@@ -13,11 +13,11 @@ idea ──▶ /plan-with-me ──▶ /to-spec ──┬──▶ /implement �
 
 ## The steps
 
-**`/plan-with-me`** runs an interview that works a design tree until the frontier is empty, then records what got settled as glossary terms and ADRs. Start here whenever the shape of the work is still open. The agent finds the facts. You make the decisions.
+**`/plan-with-me`** runs an interview that works a design tree until the frontier is empty, then records what got settled as glossary terms and ADRs. Start here whenever the shape of the work is still open. The agent finds and presents facts so you make decisions.
 
 **`/prototype`** writes throwaway code to answer one design question. Use it only when a question survived the interview because nobody has seen the thing run yet.
 
-**`/to-spec`** turns the conversation into a spec on the issue tracker. It does not interview you. It synthesizes what you already discussed. It ends by recommending either tickets or implementing the spec as it stands, and it says what decided that.
+**`/to-spec`** turns the conversation into a spec on the issue tracker. It does not interview you. It synthesizes what you already discussed. It ends by recommending either tickets or implementing the spec as it stands, and explains its reasoning.
 
 **`/to-tickets`** breaks a spec into tracer-bullet tickets, each a complete vertical slice that declares the tickets blocking it. Run it when `/to-spec` says to, or when you disagree with `/to-spec`.
 
@@ -43,7 +43,7 @@ Other skills consult these. You do not run them as sessions.
 
 **`/setup-workflow`** runs once per repo. It writes the tracked config the rest of the loop reads: `docs/agents/issue-tracker.md`, `labels.md`, `conventions.md`, `domain.md` and `environment.md`, the `## Agent skills` block in `AGENTS.md`, the labels themselves, and the branch-name hook.
 
-## The three rules behind all of it
+## Three principals to guide you
 
 1. **Decide before you build.** Every skill before `/implement` makes the next one cheaper. The interview costs less than the rewrite.
 2. **Delegate the work, keep the plan.** The orchestrating context is re-sent on every turn, so a session costs its turns times its context size. Reading files, running tests and writing code belong in sub-agents. The window that coordinates them holds pointers.
