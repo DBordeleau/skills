@@ -43,7 +43,9 @@ skills/<name>/
 
 The skills, `AGENTS.md` and `policy/global.md` are written for agents. Before you edit one of them, read [`writing-for-agents`](skills/writing-for-agents/SKILL.md), the house style for documents an agent reads. This README is written for people and follows [`unslop`](skills/unslop/SKILL.md) instead.
 
-Three places take a change, depending on how far it reaches. A per-repo convention, such as a label string, a check command or a shell problem specific to one machine, belongs in that repo's `docs/agents/*.md`. A rule that holds everywhere belongs in `policy/global.md`. A procedure belongs in a skill.
+- A per-repo convention, such as a label string, or a shell problem specific to one machine, belongs in that repo's `docs/agents/*.md`. 
+- A rule that holds everywhere belongs in `policy/global.md`.
+- A procedure belongs in a skill.
 
 ### Getting a change onto the other machines and repos
 
