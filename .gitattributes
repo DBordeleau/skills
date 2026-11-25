@@ -2,3 +2,6 @@
 
 # Shell hooks must keep LF endings or the shebang breaks on checkout.
 skills/setup-workflow/hooks/* text eol=lf
+
+# The wrapper in .githooks runs from the same shebang, so it needs LF too.
+.githooks/* text eol=lf

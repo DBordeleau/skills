@@ -1,0 +1,3 @@
+#!/bin/sh
+# The branch-name hook lives with the skill that installs it. Run that copy, so there is only one.
+exec "$(git rev-parse --show-toplevel)/skills/setup-workflow/hooks/pre-push" "$@"
