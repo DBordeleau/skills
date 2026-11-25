@@ -1,0 +1,5 @@
+interface:
+  display_name: "Implement Spec"
+  short_description: "Work a spec's ticket graph across sub-agents"
+policy:
+  allow_implicit_invocation: false

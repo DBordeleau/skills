@@ -1,0 +1,34 @@
+#!/bin/sh
+# Rejects a push that would create or update a remote branch not named <type>/<issue>-<slug>.
+#
+# Enable with:  git config core.hooksPath .githooks
+# Deletions and tags pass. The default branch is rejected on purpose: it moves
+# through merged pull requests, not local pushes. Override once with --no-verify.
+
+PATTERN='^(feat|fix|refactor|perf|test|docs|chore)/[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$'
+status=0
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+	case "$remote_ref" in
+	refs/heads/*) ;;
+	*) continue ;;
+	esac
+
+	# An all-zero local sha means this line deletes the remote branch.
+	case "$local_sha" in
+	*[!0]*) ;;
+	*) continue ;;
+	esac
+
+	branch=${remote_ref#refs/heads/}
+	if ! printf '%s' "$branch" | grep -Eq "$PATTERN"; then
+		echo "Push rejected: '$branch' must be named <type>/<issue>-<slug>, like feat/42-parse-wallet-header." >&2
+		status=1
+	fi
+done
+
+if [ "$status" -ne 0 ]; then
+	echo "Types: feat, fix, refactor, perf, test, docs, chore. Rename with: git branch -m <new-name>" >&2
+fi
+
+exit $status
