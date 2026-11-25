@@ -1,3 +1,5 @@
+<!-- /setup-workflow wrote this from DBordeleau/skills@COMMIT, fragments/labels.md. Edit it freely: an update merges only what changed upstream. -->
+
 # Labels
 
 The label vocabulary the skills use in this repo. When a skill says "label it a spec that is ready to implement", it means the strings in this table.

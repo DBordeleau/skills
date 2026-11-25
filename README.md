@@ -41,7 +41,9 @@ skills/<name>/
 
 ## Changing it
 
-Edit the skill here, then `git pull` on the other machines. Nothing needs reinstalling, because an installed skill is a link back to this repo. Read [`writing-for-agents`](skills/writing-for-agents/SKILL.md) first. It is the house style for this kind of document, and it covers the skills themselves.
+Edit the skill here, then `git pull` on the other machines. Nothing needs reinstalling, because an installed skill is a link back to this repo. Adding a skill, removing one, or changing `policy/global.md` needs one more step per machine, and a repo's own `docs/agents/*.md` are copies that need `/setup-workflow` re-run to pick a change up. [AGENTS.md](AGENTS.md#updating-an-installation) has the four cases and what each costs.
+
+Read [`writing-for-agents`](skills/writing-for-agents/SKILL.md) before editing anything here. It is the house style for this kind of document, and it covers the skills themselves.
 
 Three places take a change, depending on how far it reaches. A per-repo convention, such as a label string, a check command or a shell problem specific to one machine, belongs in that repo's `docs/agents/*.md`. A rule that holds everywhere belongs in `policy/global.md`. A procedure belongs in a skill.
 

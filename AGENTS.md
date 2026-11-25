@@ -62,14 +62,36 @@ If linking is genuinely impossible on this machine, copy instead — but then sa
 
 - Put it under its own `## Workflow policy` heading. If a block with that heading already exists, replace it rather than appending a second one.
 - Drop the file's own `# Workflow policy` title line, and demote its `##` headings to `###`, so they nest under the heading you just added instead of becoming its siblings. If the host file's own sections are `#`, match that instead and demote one level less.
-- Add a line under the heading saying where the block came from and that it is edited in the repo, not in place.
+- Add a line under the heading saying where the block came from and that it is edited in the skills repo, not in place. Name the repo and the commit, never this machine's clone path: `Installed from DBordeleau/skills@<short sha> (policy/global.md). Edit it there, not here.` The path differs on every machine, and the commit is what tells a later reader whether the block is stale.
 - Don't delete the user's own notes around it, even where the block now covers the same ground. Their rules are live until `/setup-workflow` has run in each repo and written `docs/agents/*.md`. Say which of their sections the block duplicates, and leave removing them to them.
 
 **6. Verify, and report in four lines.** Every skill in `skills/` resolves through its link at each tool path; the superseded skills from step 3 are gone; the policy block appears exactly once per file; and the backup from step 3 is where you said it is. List the installed skill names so the user can see what they have.
 
-### Updating later
+## Updating an installation
 
-`git pull` in `$REPO`. Links mean nothing else is needed. Re-run step 5 only if `policy/global.md` changed, and step 4 only if a skill was added or removed.
+What a change here costs depends on which part changed. Three of the four are cheap; the last one is the only one that needs judgement.
+
+### On a machine
+
+Start with `git pull` in the clone. Then:
+
+| What changed | What else is needed |
+| --- | --- |
+| A skill's `SKILL.md` or its reference files | Nothing. The links mean every tool reads the new text at once. |
+| A skill added or removed | Re-run step 4. `git pull` creates no link, and a deleted skill leaves a dangling one that still shows in the skill list. |
+| `policy/global.md` | Re-run step 5. The block is a copy, not a link, because those files hold the user's own notes too. |
+
+A running session loaded its skills when it started, so it keeps the old text until it restarts. Say so rather than letting the user wonder why an edit had no effect.
+
+To find whether a machine's policy block is stale, compare the commit in its `Installed from` line against `git -C <clone> rev-parse --short HEAD`.
+
+### In a repo
+
+A repo's `docs/agents/*.md` are copies, committed so a clone has them without this repo, and they get edited locally once the repo is real. A fragment changing here reaches no repo on its own.
+
+Updating one means re-running `/setup-workflow` in it, which merges the upstream change into the repo's copy rather than overwriting it. The procedure is "Re-running on a repo that is already set up" in [skills/setup-workflow/SKILL.md](skills/setup-workflow/SKILL.md), and it works off the commit in each file's provenance line.
+
+There is no list of which repos have been set up. To find them, grep for `/setup-workflow wrote this` across the repos the user works in.
 
 ## Reading order, if you are new here
 

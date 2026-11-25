@@ -1,3 +1,5 @@
+<!-- /setup-workflow wrote this from DBordeleau/skills@COMMIT, fragments/issue-tracker-local.md. Edit it freely: an update merges only what changed upstream. -->
+
 # Issue tracker: Local Markdown
 
 Issues and specs for this repo live as markdown files in `.scratch/`.

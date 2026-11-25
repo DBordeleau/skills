@@ -87,6 +87,8 @@ Read these before the first write of a session.
 
 For another tracker, write `docs/agents/issue-tracker.md` from scratch from the user's description.
 
+Each fragment opens with a provenance comment holding the literal `COMMIT`. Replace it with this skills repo's current short commit (`git -C <skills clone> rev-parse --short HEAD`). That line is what makes a later update able to merge instead of overwrite, so a file written without it can only be updated by hand. A file you wrote from scratch gets no provenance line, because there is no upstream to merge from; say so in your report.
+
 **Create the labels** the tracker is missing (`gh label create "<name>" --description "…" --color <hex>`), keeping any issue-type labels the repo already uses.
 
 Before creating one, check whether a label already fills that role under a different name, and count the issues holding it (`gh issue list --state all --limit 200 --json labels`). Rename those instead of creating a duplicate, as [fragments/labels.md](./fragments/labels.md) says, and report the count you moved. A repo that has been through the older `setup-matt-pocock-skills` will have `needs-triage` for what this vocabulary calls `needs-planning`, and may have `ready-for-agent` for `ready-for-implementation`.
@@ -108,6 +110,27 @@ Then check your own work and report it in five lines:
 - `git status` is clean of the files you wrote.
 - The labels exist (`gh label list`).
 - The hook fires: on a throwaway branch with a bad name, a dry-run push is rejected (`git push --dry-run origin HEAD:refs/heads/bad-name`), and a well-named one isn't.
-- Each `docs/agents/*.md` file has its placeholders filled, with no `<!-- fill in -->` left.
+- Each `docs/agents/*.md` file has its placeholders filled, with no `<!-- fill in -->` and no `@COMMIT` left.
+
+## Re-running on a repo that is already set up
+
+A repo's `docs/agents/*.md` are copies, committed so that a clone has them without this skills repo. That means a fragment changing upstream reaches no repo on its own, and the repo's copy has almost certainly been edited since: real check commands, a shell quirk, a hook path. **Never overwrite them with the current fragment.** Merge only what changed upstream, so local edits survive.
+
+For each `docs/agents/<name>.md` that carries a provenance line:
+
+1. Read the commit out of its provenance line. Call it `BASE`, and call the skills clone `$SKILLS`.
+2. Write the fragment as it was then, and as it is now, to two temporary files outside the repo:
+   - `git -C $SKILLS show BASE:skills/setup-workflow/fragments/<fragment>.md > base.md`
+   - `git -C $SKILLS show HEAD:skills/setup-workflow/fragments/<fragment>.md > other.md`
+3. If those two are identical, nothing changed upstream. Leave the file alone and move on.
+4. Otherwise merge the upstream change into the repo's copy, keeping its local edits:
+   - `git merge-file docs/agents/<name>.md base.md other.md`
+   - It edits the repo's copy in place. Exit 0 means a clean merge. A positive exit is the number of conflicts, left in the file as `<<<<<<<` markers.
+5. Resolve any conflict by hand, in favour of the local side when the two say the same thing differently, and in favour of upstream when upstream states a new rule. Show the user each conflict you resolved and how.
+6. Update the provenance line to the new commit.
+
+Then report, per file: unchanged, merged cleanly, or merged with conflicts you resolved. A file with no provenance line was written from scratch, so say that it needs a human read instead of a merge.
+
+Re-run the label and hook steps too, since both are idempotent: a renamed label role or a changed hook will not have reached the repo either. Ask before renaming a label a second time.
 
 Finish by naming the daily loop the repo is now set up for: `/plan-with-me` → `/to-spec` → `/to-tickets` if advised → `/implement` or `/implement-spec` → `code-review` → `pr`. Mention that `docs/agents/*.md` can be edited directly later, and that re-running this skill is only needed to switch trackers or start over.

@@ -1,3 +1,5 @@
+<!-- /setup-workflow wrote this from DBordeleau/skills@COMMIT, fragments/conventions.md. Edit it freely: an update merges only what changed upstream. -->
+
 # Conventions
 
 How agents work in this repo. Read this before the first write of a session.

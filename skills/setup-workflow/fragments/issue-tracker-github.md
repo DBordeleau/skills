@@ -1,3 +1,5 @@
+<!-- /setup-workflow wrote this from DBordeleau/skills@COMMIT, fragments/issue-tracker-github.md. Edit it freely: an update merges only what changed upstream. -->
+
 # Issue tracker: GitHub
 
 Issues and specs for this repo live as GitHub issues. Use the `gh` CLI for all operations.
