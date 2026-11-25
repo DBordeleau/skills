@@ -50,11 +50,15 @@ Windows PowerShell (symlinks need Developer Mode or an elevated shell; a directo
 Get-ChildItem "$REPO\skills" -Directory | ForEach-Object {
   foreach ($base in @("$HOME\.agents\skills", "$HOME\.claude\skills")) {
     $link = Join-Path $base $_.Name
-    if (Test-Path $link) { Remove-Item $link -Recurse -Force }
+    $existing = Get-Item -LiteralPath $link -Force -ErrorAction SilentlyContinue
+    if ($existing -and $existing.LinkType) { [System.IO.Directory]::Delete($link, $false) }
+    elseif ($existing) { Remove-Item -LiteralPath $link -Recurse -Force }
     New-Item -ItemType Junction -Path $link -Target $_.FullName | Out-Null
   }
 }
 ```
+
+**Never clear an existing link with `Remove-Item -Recurse -Force`.** In Windows PowerShell 5.1 that follows the junction and deletes the files it points at, which on a re-run means deleting this repo's own skill directories. `[System.IO.Directory]::Delete($link, $false)` removes the link alone, and the `elseif` handles a real directory, which is what a first install finds.
 
 If linking is genuinely impossible on this machine, copy instead — but then say plainly that the copies will drift and that `git pull` won't update them.
 
