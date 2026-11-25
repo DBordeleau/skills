@@ -1,31 +1,31 @@
 # skills
 
-My engineering workflow, in one place: the skills I use, the policy they share, and the per-repo config that wires them into a project.
+My engineering workflow in one place: the skills I use, the policy they share, and the per-repo config each project needs.
 
-The point is that the workflow lives here and nowhere else. Installing it on a machine links these directories into whatever tool is on it, so editing a skill here changes how every agent on every machine behaves. Setting up a project writes tracked config into that project, so a fresh clone and a fresh agent find the same rules.
+The workflow lives here and nowhere else. Installing it on a machine links these directories into whatever tool is on that machine, so editing a skill here changes how every agent on every machine behaves. Setting up a project writes tracked config into that project, so a fresh clone and a fresh agent find the same rules.
 
 ## Getting started
 
-**On a new machine** — clone this repo, then tell an agent:
+**On a new machine.** Clone this repo, then tell an agent:
 
 > Set up my workflow from this repo.
 
-It reads [AGENTS.md](AGENTS.md) and does the rest: links the skills into the tools it finds, installs the shared policy, backs up whatever was there, and reports what it did. Works in Claude Code, the ChatGPT app, or anything else that can read files and run `git`.
+It reads [AGENTS.md](AGENTS.md) and does the rest. It links the skills into the tools it finds, installs the shared policy, backs up whatever was already there, and reports what it did. It works in Claude Code, the ChatGPT app, or anything else that can read files and run `git`.
 
-**In a project** — from inside that repo:
+**In a project.** From inside that repo, tell an agent:
 
 > Set this repo up for my workflow.
 
 That runs [`setup-workflow`](skills/setup-workflow/SKILL.md), which asks at most three questions and then commits the config.
 
-**Day to day** — see [WORKFLOW.md](WORKFLOW.md).
+**Day to day.** See [WORKFLOW.md](WORKFLOW.md).
 
 ## Layout
 
 ```
 AGENTS.md            what an agent pointed at this repo should do
 WORKFLOW.md          the loop these skills form
-policy/global.md     machine-level rules: attribution, branches, delegation, effort
+policy/global.md     machine-level rules: attribution, writing, branches, delegation, effort
 skills/<name>/
   SKILL.md           the skill itself
   agents/openai.yaml adapter for tools that want one
@@ -34,9 +34,9 @@ skills/<name>/
 
 ## Changing it
 
-Edit the skill here and `git pull` on the other machines; the links do the rest. Read [`writing-for-agents`](skills/writing-for-agents/SKILL.md) before you do — it's the house style for this kind of document, and it applies to the skills themselves.
+Edit the skill here, then `git pull` on the other machines. Nothing needs reinstalling, because an installed skill is a link back to this repo. Read [`writing-for-agents`](skills/writing-for-agents/SKILL.md) first. It is the house style for this kind of document, and it covers the skills themselves.
 
-A per-repo convention (a label string, a check command, a shell gotcha) belongs in that repo's `docs/agents/*.md`, not here. A rule that should hold everywhere belongs in `policy/global.md`. A procedure belongs in a skill.
+Three places take a change, depending on how far it reaches. A per-repo convention, such as a label string, a check command or a shell problem specific to one machine, belongs in that repo's `docs/agents/*.md`. A rule that holds everywhere belongs in `policy/global.md`. A procedure belongs in a skill.
 
 ## Credits
 

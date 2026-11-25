@@ -1,6 +1,6 @@
 # The workflow
 
-The loop these skills form, and which one to reach for when. Read this if you want the shape of the thing; read a skill's own `SKILL.md` for how to run it.
+How the skills fit together, and which one to reach for when. Read a skill's own `SKILL.md` for how to run it.
 
 ```
 idea ──▶ /plan-with-me ──▶ /to-spec ──┬──▶ /implement ───────────┐
@@ -13,38 +13,38 @@ idea ──▶ /plan-with-me ──▶ /to-spec ──┬──▶ /implement �
 
 ## The steps
 
-**`/plan-with-me`** — an interview that works a design tree until the frontier is empty, then records what got settled as glossary terms and ADRs. Start here whenever the shape of the thing isn't obvious yet. Facts are the agent's job to find; decisions are yours.
+**`/plan-with-me`** runs an interview that works a design tree until the frontier is empty, then records what got settled as glossary terms and ADRs. Start here whenever the shape of the work is still open. The agent finds the facts. You make the decisions.
 
-**`/prototype`** — only when a question survived the interview because nobody has seen it run yet. Throwaway code to answer one design question.
+**`/prototype`** writes throwaway code to answer one design question. Use it only when a question survived the interview because nobody has seen the thing run yet.
 
-**`/to-spec`** — turns the conversation into a spec on the issue tracker. No interview; pure synthesis of what you already discussed. It ends by recommending either tickets or implementing as-is, and says what decided it.
+**`/to-spec`** turns the conversation into a spec on the issue tracker. It does not interview you. It synthesizes what you already discussed. It ends by recommending either tickets or implementing the spec as it stands, and it says what decided that.
 
-**`/to-tickets`** — breaks a spec into tracer-bullet tickets, each a complete vertical slice with its blocking edges declared. Run it when `/to-spec` says to, or when you disagree with it.
+**`/to-tickets`** breaks a spec into tracer-bullet tickets, each a complete vertical slice that declares the tickets blocking it. Run it when `/to-spec` says to, or when you disagree with `/to-spec`.
 
-**`/implement`** — one spec or one ticket, built by sub-agents while the orchestrator holds only the plan. Use it when the work fits a single pass.
+**`/implement`** builds one spec or one ticket. Sub-agents do the work while the orchestrator holds only the plan. Use it when the work fits a single pass.
 
-**`/implement-spec`** — a whole spec's ticket graph, worked frontier-first across concurrent implementer sub-agents on their own worktrees, merged onto one integration branch.
+**`/implement-spec`** builds a whole spec's ticket graph. It works the frontier across concurrent implementer sub-agents, each on its own worktree, and merges them onto one integration branch.
 
-**`code-review`** — two parallel reviews of the diff: Standards (does it follow this repo's documented standards, plus a fixed smell baseline) and Spec (does it do what the issue asked). Reported side by side, never merged, so one axis can't mask the other. Both implement skills call it before finishing.
+**`code-review`** runs two reviews of the diff in parallel. Standards asks whether the code follows this repo's documented standards plus a fixed smell baseline. Spec asks whether the code does what the issue asked for. The two are reported side by side and never merged, so one cannot mask the other. Both implement skills call it before they finish.
 
-**`pr`** — the PR body: a diagram or diff-sketch summary, before/after evidence, and a one-way/two-way door risk note.
+**`pr`** writes the PR body: a diagram or diff-sketch summary, before and after evidence, and a note on whether the merge is a one-way or two-way door.
 
 ## Supporting skills
 
-These are references other skills consult, not sessions you run:
+Other skills consult these. You do not run them as sessions.
 
-- **`unslop`** — cuts AI tells from anything written for a human. Every other skill that publishes prose invokes it, and so does any agent about to send a message. See [policy/global.md](policy/global.md).
-- **`tdd`** — what a good test is, where seams go, the anti-patterns, the rules of the red → green loop.
-- **`domain-modeling`** — building and sharpening the glossary and ADRs. Reached through `/plan-with-me`.
-- **`codebase-design`** — the shared vocabulary for module depth, interfaces, seams and leverage.
-- **`writing-for-agents`** — how to write a skill, an `AGENTS.md`, or a `CLAUDE.md`. Read it before changing anything in this repo.
+- **`unslop`** cuts AI tells from anything written for a human. Every skill that publishes prose invokes it, and so does any agent about to send a message. See [policy/global.md](policy/global.md).
+- **`tdd`** covers what a good test is, where seams go, the anti-patterns, and the rules of the loop from failing test to passing code.
+- **`domain-modeling`** builds and sharpens the glossary and the ADRs. `/plan-with-me` reaches it.
+- **`codebase-design`** holds the shared vocabulary for module depth, interfaces, seams and leverage.
+- **`writing-for-agents`** covers how to write a skill, an `AGENTS.md`, or a `CLAUDE.md`. Read it before changing anything in this repo.
 
 ## Per-repo setup
 
-**`/setup-workflow`**, once per repo, writes the tracked config the rest of the loop reads: `docs/agents/{issue-tracker,labels,conventions,domain,environment}.md`, the `## Agent skills` block in `AGENTS.md`, the labels, and the branch-name hook.
+**`/setup-workflow`** runs once per repo. It writes the tracked config the rest of the loop reads: `docs/agents/issue-tracker.md`, `labels.md`, `conventions.md`, `domain.md` and `environment.md`, the `## Agent skills` block in `AGENTS.md`, the labels themselves, and the branch-name hook.
 
 ## The three rules behind all of it
 
-1. **Decide before you build.** Every skill before `/implement` exists to make the next one cheaper, and the interview is cheaper than the rewrite.
-2. **Delegate the work, keep the plan.** The orchestrating context is re-sent every turn. Reading files, running tests and writing code belong in sub-agents; the window that coordinates them holds pointers.
-3. **Write like a person.** Anything a human reads goes through `unslop` first. That includes the messages an agent sends while doing the work, not only the artifacts it leaves behind.
+1. **Decide before you build.** Every skill before `/implement` makes the next one cheaper. The interview costs less than the rewrite.
+2. **Delegate the work, keep the plan.** The orchestrating context is re-sent on every turn, so a session costs its turns times its context size. Reading files, running tests and writing code belong in sub-agents. The window that coordinates them holds pointers.
+3. **Write like a person.** Anything a human reads goes through `unslop` first. That covers the messages an agent sends while working, and the artifacts it leaves behind.
