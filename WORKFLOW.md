@@ -47,7 +47,7 @@ Other skills consult these. You do not run them as sessions.
 
 **`/setup-workflow`** runs once per repo. It writes the tracked config the rest of the loop reads: `docs/agents/issue-tracker.md`, `labels.md`, `conventions.md`, `domain.md` and `environment.md`, the `## Agent skills` block in `AGENTS.md`, the labels themselves, and the branch-name hook.
 
-## Three principals to guide you
+## Three principles to guide you
 
 1. **Decide before you build.** Every skill before `/implement` makes the next one cheaper. The interview costs less than the rewrite.
 2. **Delegate the work, keep the plan.** The orchestrating context is re-sent on every turn, so a session costs its turns times its context size. Reading files, running tests and writing code belong in sub-agents. The window that coordinates them holds pointers.
