@@ -102,3 +102,13 @@ There is no list of which repos have been set up. To find them, grep for `/setup
 1. [WORKFLOW.md](WORKFLOW.md) — the loop these skills form, and which one to reach for when.
 2. [policy/global.md](policy/global.md) — the rules that hold in every project.
 3. [skills/setup-workflow/SKILL.md](skills/setup-workflow/SKILL.md) — what a configured project looks like.
+
+## Agent skills
+
+Read these before the first write of a session.
+
+- **Issue tracker**: GitHub issues on `DBordeleau/skills`, through `gh`. See `docs/agents/issue-tracker.md`.
+- **Labels**: the standard vocabulary, with GitHub's `question` renamed to `needs-info`. See `docs/agents/labels.md`.
+- **Conventions**: attribution, branch names, commits, cleanup, effort. See `docs/agents/conventions.md`.
+- **Domain docs**: single-context. See `docs/agents/domain.md`.
+- **Environment**: shell, dev server, checks. See `docs/agents/environment.md`.
