@@ -21,3 +21,5 @@ Colours, when creating them: `needs-planning` `fbca04`, `ready-for-implementatio
 - Issue-type labels the repo already uses (`bug`, `enhancement`, `refactor`) are orthogonal: keep them, and don't replace one with a label from this table.
 
 Create any of these the tracker is missing before the first label write of a session.
+
+If the tracker already has a label that fills one of these roles under another name, **rename it rather than creating a second one**. A rename carries every issue already carrying it; a create leaves them on the old label, which is how two vocabularies end up competing. On GitHub: `gh label edit "<old>" --name "<new>" --description "..."`. Check first how many issues hold the old name, and say the number.

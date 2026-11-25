@@ -89,6 +89,8 @@ For another tracker, write `docs/agents/issue-tracker.md` from scratch from the 
 
 **Create the labels** the tracker is missing (`gh label create "<name>" --description "…" --color <hex>`), keeping any issue-type labels the repo already uses.
 
+Before creating one, check whether a label already fills that role under a different name, and count the issues holding it (`gh issue list --state all --limit 200 --json labels`). Rename those instead of creating a duplicate, as [fragments/labels.md](./fragments/labels.md) says, and report the count you moved. A repo that has been through the older `setup-matt-pocock-skills` will have `needs-triage` for what this vocabulary calls `needs-planning`, and may have `ready-for-agent` for `ready-for-implementation`.
+
 **Install the hook.** Copy [hooks/pre-push](./hooks/pre-push) to `.githooks/pre-push`, make it executable, and point git at it: `git config core.hooksPath .githooks`. `core.hooksPath` is local config, so it doesn't travel with a clone — add it to whatever the project already runs on install (an npm `prepare` script, a bootstrap task) so a fresh clone is covered, and say in `docs/agents/environment.md` how to set it by hand.
 
 If a `pre-push` hook already exists, extend it rather than replacing it, and add a test for the branch-name check if the repo has somewhere tests live.
