@@ -1,12 +1,13 @@
 ---
 name: plan-with-me
 description: "A relentless interview that sharpens a plan, design, or idea until nothing is silently assumed, then records what got decided as glossary terms and ADRs. Use when the user wants to think something through before building it."
-disable-model-invocation: true
 ---
 
-# Plan With Me
+# Plan with me
 
 Interview the user until you reach a shared understanding, then record what was decided.
+
+Run this only when the user asked for it, or when another skill called it. Do not start an interview on your own.
 
 Two phases, in order:
 

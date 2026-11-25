@@ -16,7 +16,9 @@ Use this template for writing the PR body:
 ```markdown
 ## Summary
 
-<diagram, diff-sketch, or tree>
+<one sentence: what a person can now do that they could not before>
+
+<one visual: a before and after table, a Mermaid diagram, or a numbers table>
 
 ## Evidence
 
@@ -40,122 +42,72 @@ Skip all preambles and keep prose brief. Use the user's domain language from `GL
 
 ### Summary
 
-Pick the smallest view that makes the key point clear.
+One sentence, then one visual. The sentence says what a person can now do that they could not before, or what now holds that did not. The visual shows the same thing at a glance.
 
-- Show logic or an algorithm as pseudocode:
+The visual carries the benefit of the change, not its shape. A reviewer reads the diff for the shape. So do not open with a file tree, a diff sketch or a call stack. They describe the edit rather than the gain, they go stale on the next commit, and they push the point below the fold.
 
-```text
-on(save)
-  if content is unchanged
-    return cached result
-  write new content
-  return fresh result
-```
+Pick one visual, by what kind of change this is.
 
-- Show runtime control flow as a call tree:
+**Behaviour changed, or a bug is fixed: a before and after table.** One row per thing a person does or sees. Name that thing in the left column, in glossary terms.
 
-```text
-submitForm
-  createSession
-    persistPrompt
-    launchAgent
-  navigateToSession
-```
+| | Before | After |
+| --- | --- | --- |
+| Career FP/G | Mean of each season's FP/G, over seasons with points | Career points divided by career games played |
+| A season with games but no points | Left out of the average | Counted |
+| Goalies | No games played on record | Games played from the morning sync |
 
-- Show UI structure as a component tree, including state and module boundaries that matter:
-
-```text
-<SessionPage> (apps/example/src/routes/session.tsx)
-  useSessionEvents()
-  <SessionToolbar>
-    <RunSkillButton> (packages/ui)
-```
-
-- Show file responsibility or a broad refactor as a shallow file tree:
-
-```text
-src/
-├── commands/       # parses user actions
-├── sessions/       # owns session state
-└── transport/      # sends API requests
-```
-
-- Show component interaction, control flow, or data flow with Mermaid:
+**A path through the system changed: a Mermaid flowchart.** Use it when the change adds a route, removes a step, or sends one somewhere else. Say which node is new in its own label.
 
 ```mermaid
-sequenceDiagram
-    participant User
-    participant UI
-    participant Daemon
-    User->>UI: choose command
-    UI->>Daemon: send expanded prompt
-    Daemon-->>UI: stream result
+flowchart LR
+  A[Episode link] --> B{Published?}
+  B -- no --> C[404]
+  B -- yes --> D["Episode share card (new)"]
+  D --> E[Unfurled preview]
 ```
 
-- Use `diff` when the point is what changes and the surrounding shape already exists. Match the diff shape to the topic.
+**Several callers became one rule: a Mermaid flowchart with the before and after side by side.** This is the refactor case. The benefit is the number of call sites that now share one rule, so count them in the diagram.
 
-For a component change:
-
-```diff
- <SessionPage>
-   useSessionEvents()
-   <SessionToolbar>
-+    <RunSkillButton />
-   <SessionTimeline>
-+    <SkillResultCard />
+```mermaid
+flowchart LR
+  subgraph Before
+    a1[award vote] --> n1[its own NHL lookup]
+    a2[keepers] --> n2[its own player details]
+  end
+  subgraph After
+    b1[award vote] --> m[lib/nhl]
+    b2[keepers] --> m
+  end
 ```
 
-For a file-layout change:
+**A state model changed: a Mermaid state diagram.** Use it when the change adds a state, or allows a transition that was impossible before.
 
-```diff
- src/
- ├── commands/
-+│   └── show-me.ts       # expands the slash command
- ├── sessions/
--└── transport.ts
-+└── transport/
-+    ├── client.ts
-+    └── stream.ts
+```mermaid
+stateDiagram-v2
+  [*] --> Open
+  Open --> Scored: ballot lock passes
+  Scored --> Published: has a tally
+  Scored --> Open: reopen
+  Published --> Published: refresh the archive
 ```
 
-For a call-tree or call-stack change:
+**Speed, cost or size changed: a numbers table.** Give the metric, the before, the after, and how you measured it.
 
-```diff
- submitForm
-   createSession
-     persistPrompt
-+    expandSkillMention
-     launchAgent
--  navigateToSession
-+  navigateToSession
-+    subscribeToEvents
-```
+| Metric | Before | After |
+| --- | --- | --- |
+| Evening Fantrax refresh | Every night, 40s | Skipped when nothing changed |
+| Function invocations per day | 1,440 | 12 |
 
-For a state or control-flow change:
+Rules for all of them:
 
-```diff
- on(save)
--  write content
-+  if content is unchanged
-+    return cached result
-+  write new content
-+  invalidate cache
-```
+- One visual. If a second one seems necessary, the sentence above it is not doing its job.
+- Keep it under about twelve rows or nodes. A reviewer should take it in without scrolling.
+- Label every row and node in the project's own language, from `GLOSSARY.md`.
+- Never let colour be the only signal, because a reader may be colour blind. Put the word "new" in the label.
+- Mermaid renders on GitHub, GitLab and most viewers. A table renders everywhere. Prefer the table when the change is a list of behaviours rather than a shape.
+- Quote a Mermaid label that contains brackets, parentheses or a colon, as in `D["Episode share card (new)"]`, or the diagram fails to parse.
 
-- Show the whole block when most of it is new, when omitted context would hide ownership or order, or when the user needs a copyable target shape:
-
-```ts
-function expandSkill(command: string): string {
-  const skillName = command.slice(1);
-  return `use the ${skillName} skill`;
-}
-```
-
-#### Guidance
-
-Place each visual next to the short text it supports. Keep only the calls, files, props, states, and boundaries needed to answer the user's current question or the options to resolve the current discussion point.
-
-You may use one of these, you may use several, it is unlikely you will use all of them. Use your judgement and don't overwhelm the user.
+If the structure of the change is worth showing too, put it below the Summary under its own heading, and keep it to the files, calls or props a reviewer needs. A component tree, a file tree or a short call tree works there. Still no diff sketches.
 
 ### Evidence
 

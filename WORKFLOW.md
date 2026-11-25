@@ -29,6 +29,10 @@ idea ──▶ /plan-with-me ──▶ /to-spec ──┬──▶ /implement �
 
 **`pr`** writes the PR body: a diagram or diff-sketch summary, before and after evidence, and a note on whether the merge is a one-way or two-way door.
 
+## Starting from the codebase
+
+**`/improve-codebase-architecture`** scans a repo for deepening opportunities, the refactors that turn a shallow module into a deep one, and writes them up as an HTML report you can read. Pick a candidate and it runs the `/plan-with-me` interview over that one, which puts you back on the loop above at `/to-spec`. Use it when you want the next piece of work to come out of the code rather than out of an idea.
+
 ## Supporting skills
 
 Other skills consult these. You do not run them as sessions.
