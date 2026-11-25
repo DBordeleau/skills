@@ -45,7 +45,9 @@ Other skills consult these. You do not run them as sessions.
 
 ## Per-repo setup
 
-**`/setup-workflow`** runs once per repo. It writes the tracked config the rest of the loop reads: `docs/agents/issue-tracker.md`, `labels.md`, `conventions.md`, `domain.md` and `environment.md`, the `## Agent skills` block in `AGENTS.md`, the labels themselves, and the branch-name hook.
+**`/setup-workflow`** sets a repo up, then runs again whenever a fragment in the skills repo changes. It writes the tracked config the rest of the loop reads: `docs/agents/issue-tracker.md`, `labels.md`, `conventions.md`, `domain.md` and `environment.md`, the `## Agent skills` block in `AGENTS.md`, the labels themselves, and the branch-name hook.
+
+Those files are copies, so a change in the skills repo reaches no repo until you re-run it there. A later run merges only what changed upstream and keeps whatever was filled in for that repo. [README.md](README.md#getting-a-change-onto-the-other-machines-and-repos) has the other three update cases.
 
 ## Three principles to guide you
 

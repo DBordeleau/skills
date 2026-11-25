@@ -41,11 +41,21 @@ skills/<name>/
 
 ## Changing it
 
-Edit the skill here, then `git pull` on the other machines. Nothing needs reinstalling, because an installed skill is a link back to this repo. Adding a skill, removing one, or changing `policy/global.md` needs one more step per machine, and a repo's own `docs/agents/*.md` are copies that need `/setup-workflow` re-run to pick a change up. [AGENTS.md](AGENTS.md#updating-an-installation) has the four cases and what each costs.
-
 Read [`writing-for-agents`](skills/writing-for-agents/SKILL.md) before editing anything here. It is the house style for this kind of document, and it covers the skills themselves.
 
 Three places take a change, depending on how far it reaches. A per-repo convention, such as a label string, a check command or a shell problem specific to one machine, belongs in that repo's `docs/agents/*.md`. A rule that holds everywhere belongs in `policy/global.md`. A procedure belongs in a skill.
+
+### Getting a change onto the other machines and repos
+
+`git pull` in the clone is the whole job when you edited a skill's own text, because an installed skill is a link back to this repo. Three kinds of change need one more step:
+
+- **A skill added or removed.** Re-link on each machine. `git pull` creates no link, and a skill you delete leaves a dangling one that still shows in the skill list.
+- **`policy/global.md`.** Re-copy the block on each machine. It is a copy rather than a link, because the files it goes into hold your own notes too.
+- **A fragment under `skills/setup-workflow/fragments/`.** Re-run `/setup-workflow` in **each repo you work in**. A repo's `docs/agents/*.md` are copies, committed so that a clone has them without this repo, so a fragment change here reaches no repo on its own. The re-run merges only what changed upstream and keeps the parts filled in for that repo, such as its real check commands.
+
+Rather than working out which case applies, tell an agent in the clone: "update my workflow from this repo". It reads [AGENTS.md](AGENTS.md#updating-an-installation), which holds all four cases, and takes the extra step only when there is one.
+
+A running session loaded its skills when it started, so restart it before wondering why an edit had no effect.
 
 ## Credits
 
