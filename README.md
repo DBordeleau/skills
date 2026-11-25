@@ -2,7 +2,7 @@
 
 My engineering workflow in one place: the skills I use, the policy they share, and the per-repo config each project needs.
 
-The workflow lives here and nowhere else. Installing it on a machine links these directories into whatever tool is on that machine, so editing a skill here changes how every agent on every machine behaves. Setting up a project writes tracked config into that project, so a fresh clone and a fresh agent find the same rules.
+Installing it on a machine links these directories into whatever tool is on that machine, so editing a skill here changes how every agent on every machine behaves. Setting up a project writes tracked config into that project, so a fresh clone and a fresh agent find the same rules.
 
 ## Getting started
 
