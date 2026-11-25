@@ -99,7 +99,9 @@ If a `pre-push` hook already exists, extend it rather than replacing it, and add
 
 ## 5. Commit, then verify
 
-Commit everything in one commit, as the user, with no tool credit: `chore: set up agent workflow config`.
+Commit everything in one commit, as the user, with no tool credit. Follow the commit convention you just wrote: an imperative sentence in the project's own language, with no `chore:` prefix.
+
+If you are on the default branch, branch first, as `docs/agents/conventions.md` requires. Where the branch name needs an issue number and there is no issue for this, commit to a local branch with a placeholder name and stop there. Opening an issue and a pull request publishes to the tracker, so ask the user before doing either, and tell them the branch is waiting.
 
 Then check your own work and report it in five lines:
 
