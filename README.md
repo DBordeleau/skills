@@ -40,4 +40,4 @@ A per-repo convention (a label string, a check command, a shell gotcha) belongs 
 
 ## Credits
 
-Most of these skills started as [mattpocock/skills](https://github.com/mattpocock/skills). See [CREDITS.md](CREDITS.md).
+Most of these skills started as [mattpocock/skills](https://github.com/mattpocock/skills). `unslop` is from [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan. See [CREDITS.md](CREDITS.md).

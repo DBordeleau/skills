@@ -16,7 +16,7 @@ Read `docs/agents/issue-tracker.md`, `docs/agents/labels.md` and `docs/agents/co
 
 Check with the user that these seams match their expectations.
 
-3. Write the spec using the template below, then publish it to the project issue tracker. Label it as a spec that is ready to implement (`docs/agents/labels.md` gives the strings), and remove the planning label if you are rewriting an issue that carried one. No further planning pass is needed.
+3. Call the Skill tool with `unslop`, write the spec using the template below, and apply its rules to every section before publishing. A spec is read by humans for months; the template's headings are a fixed format and stay as they are. Then publish it to the project issue tracker. Label it as a spec that is ready to implement (`docs/agents/labels.md` gives the strings), and remove the planning label if you are rewriting an issue that carried one. No further planning pass is needed.
 
 4. Recommend what to do next, in the terms below. This is the last thing you say, and you always say it.
 

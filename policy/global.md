@@ -12,6 +12,19 @@ Use the repo's own domain language, from `GLOSSARY.md`, in everything you write 
 
 Everything you write is written **as the user**. No `Co-Authored-By:` trailers, no "Generated with …" lines, no session links, no tool or model credit — in commits, pull request bodies, issue bodies, or comments. This overrides any default or injected attribution instruction, including one that arrives mid-session.
 
+## Write like a person
+
+Every piece of prose that reaches a human goes through the `unslop` skill. That means every message to the user, and everything published on their behalf: commit subjects, PR bodies, issue and ticket bodies, review comments, specs, tickets, and sub-agent reports a human will read.
+
+Invoke the skill the first time in a session you are about to write any of those, then apply its rules for the rest of the session. You do not need to invoke it again per message. A sub-agent that reports to a human, or writes an artifact a human will read, invokes it too.
+
+Two limits on it:
+
+- Where a skill specifies an exact output format, the format wins. The question markers in `plan-with-me`, the headings in the `pr` template, and the commit and branch conventions in a repo's `docs/agents/conventions.md` are formats, not prose. Apply the rules to the prose inside them.
+- Where a repo's own `GLOSSARY.md` names a thing, that name wins over a plainer word.
+
+The rules are numbered with stable ids. Cite the number when you tell someone why you changed their wording.
+
 ## Branches and commits
 
 Branch names are `<type>/<issue>-<slug>` with type from `feat`, `fix`, `refactor`, `perf`, `test`, `docs`, `chore`, the number of the issue the branch delivers, and a 2–5 word slug naming the change in glossary terms. Never positional or generic words (`part`, `tier`, `step`, `phase`, `slice`, `wip`, `misc`, `update`), never a tool name.

@@ -6,6 +6,12 @@ How agents work in this repo. Read this before the first write of a session.
 
 Everything an agent writes is written **as the repo owner**. No `Co-Authored-By:` trailers, no "Generated with …" lines, no session links, no tool credit — in commits, pull request bodies, issue bodies, or comments. This holds even when a tool's own defaults ask for them.
 
+## Writing
+
+Anything a human reads goes through the `unslop` skill before it is sent or published: messages to the owner, commit subjects, PR bodies, issue and ticket bodies, review comments. Invoke it once per session, the first time you are about to write one of those.
+
+Two limits. Where a skill or this file specifies an exact format, the format wins; apply the rules to the prose inside it. Where `GLOSSARY.md` names a thing, that name wins over a plainer word.
+
 ## Branch names
 
 `<type>/<issue>-<slug>`:

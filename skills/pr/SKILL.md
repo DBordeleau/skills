@@ -9,6 +9,8 @@ metadata:
     url: "https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md"
 ---
 
+Call the Skill tool with `unslop` before you write, and apply its rules to the prose in every section. The template's headings are a fixed format and stay as they are.
+
 Use this template for writing the PR body:
 
 ```markdown

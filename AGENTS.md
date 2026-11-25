@@ -28,7 +28,9 @@ Each skill is a directory under `skills/` holding a `SKILL.md` and, optionally, 
 | Codex, and other agents.md tools | `~/.agents/skills/` |
 | Anything else | ask the user where that tool reads skills from |
 
-**3. Back up what's there.** If a directory already holds skills, copy it aside (`skills-backup-<today>`) before touching anything, and tell the user you did. Pay attention to skills this repo supersedes — if `grill-me`, `grill-with-docs`, `grilling`, `to-spec`, `to-tickets`, `implement`, `implement-spec` or `setup-matt-pocock-skills` are already installed from somewhere else, they must be removed, not left beside these: two skills that answer to the same job will both fire.
+**3. Back up what's there.** If a directory already holds skills, copy it aside (`skills-backup-<today>`) before touching anything, and tell the user you did. Pay attention to skills this repo supersedes: if `grill-me`, `grill-with-docs`, `grilling`, `to-spec`, `to-tickets`, `implement`, `implement-spec` or `setup-matt-pocock-skills` are already installed from somewhere else, remove them rather than leaving them beside these. Two skills that answer to the same job will both fire.
+
+The same applies to `unslop`. This repo carries its own copy, with the frontmatter changed so agents can invoke it. A copy installed from pstack or from `cursor/plugins` has `disable-model-invocation: true` and will not fire on its own, so leaving both installed gets you the wrong one. Remove the other copy.
 
 **4. Link each skill** in `$REPO/skills/` into each tool directory, one link per skill, named after the skill.
 

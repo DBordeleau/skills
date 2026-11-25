@@ -8,6 +8,8 @@ You have been provided a spec. This spec should have tickets associated with it,
 
 Read `docs/agents/conventions.md` and `docs/agents/issue-tracker.md` before the first write. If they don't exist, tell the user to run `/setup-workflow`.
 
+Call the Skill tool with `unslop` before the first thing you write that a human will read, and tell every sub-agent to do the same for its commit subjects and its report.
+
 The **scope** is the tickets the user names alongside the spec, such as `147 (148, 149, 160)`; with none named, it is every ticket of the spec. Tickets outside the scope stay open and untouched. If a ticket in scope is blocked by an open ticket outside it, stop and ask the user before starting.
 
 The goal is the scope implemented on a single **integration branch**, with every ticket in scope resolved the way the issue tracker closes work. The spec itself is resolved only when the scope leaves none of its tickets open.

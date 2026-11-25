@@ -10,6 +10,8 @@ Implement one piece of work: a spec small enough to build in one pass, or a sing
 
 Read `docs/agents/conventions.md` and `docs/agents/issue-tracker.md` before the first write. If they don't exist, tell the user to run `/setup-workflow`.
 
+Call the Skill tool with `unslop` before the first thing you write that a human will read: a commit subject, a PR body, a ticket comment, or a message to the user. Tell each implementer sub-agent to do the same for its commit subjects and its report.
+
 For a spec whose scope spans several tickets, use `/implement-spec` instead.
 
 ## Your job is to orchestrate, not to type

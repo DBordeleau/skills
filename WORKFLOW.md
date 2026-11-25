@@ -33,6 +33,7 @@ idea ──▶ /plan-with-me ──▶ /to-spec ──┬──▶ /implement �
 
 These are references other skills consult, not sessions you run:
 
+- **`unslop`** — cuts AI tells from anything written for a human. Every other skill that publishes prose invokes it, and so does any agent about to send a message. See [policy/global.md](policy/global.md).
 - **`tdd`** — what a good test is, where seams go, the anti-patterns, the rules of the red → green loop.
 - **`domain-modeling`** — building and sharpening the glossary and ADRs. Reached through `/plan-with-me`.
 - **`codebase-design`** — the shared vocabulary for module depth, interfaces, seams and leverage.
@@ -42,7 +43,8 @@ These are references other skills consult, not sessions you run:
 
 **`/setup-workflow`**, once per repo, writes the tracked config the rest of the loop reads: `docs/agents/{issue-tracker,labels,conventions,domain,environment}.md`, the `## Agent skills` block in `AGENTS.md`, the labels, and the branch-name hook.
 
-## The two rules behind all of it
+## The three rules behind all of it
 
 1. **Decide before you build.** Every skill before `/implement` exists to make the next one cheaper, and the interview is cheaper than the rewrite.
 2. **Delegate the work, keep the plan.** The orchestrating context is re-sent every turn. Reading files, running tests and writing code belong in sub-agents; the window that coordinates them holds pointers.
+3. **Write like a person.** Anything a human reads goes through `unslop` first. That includes the messages an agent sends while doing the work, not only the artifacts it leaves behind.

@@ -58,6 +58,8 @@ Iterate until the user approves the breakdown.
 
 ### 5. Publish the tickets to the configured tracker
 
+Call the Skill tool with `unslop` first, and apply its rules to every ticket title and body. The templates' headings are a fixed format and stay as they are.
+
 Publish the approved tickets. **How** depends on the tracker `/setup-workflow` configured; the tickets are the same either way, only the shape of the blocking edges changes:
 
 - **Local files** → write one file per ticket under `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01` in dependency order (blockers first). Each file's "Blocked by" lists the numbers/titles it depends on. Use the per-ticket file template below: one ticket per file, never a single combined file.

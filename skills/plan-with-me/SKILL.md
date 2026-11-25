@@ -37,6 +37,8 @@ Format a round like so:
 
 Word each question so "yes" accepts your recommended answer.
 
+Call the Skill tool with `unslop` before the first round, and apply its rules to the question bodies and your recommended answers. The markers, numbering and separators above are a fixed format and stay as they are.
+
 Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
 
 Be relentless. A plan that survives this should have no soft spots left: every branch visited, every assumption either confirmed by the user or found as a fact.
