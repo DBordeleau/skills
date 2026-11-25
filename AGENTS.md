@@ -58,7 +58,7 @@ Get-ChildItem "$REPO\skills" -Directory | ForEach-Object {
 }
 ```
 
-**Never clear an existing link with `Remove-Item -Recurse -Force`.** In Windows PowerShell 5.1 that follows the junction and deletes the files it points at, which on a re-run means deleting this repo's own skill directories. `[System.IO.Directory]::Delete($link, $false)` removes the link alone, and the `elseif` handles a real directory, which is what a first install finds.
+**Never clear an existing link with `Remove-Item -Recurse -Force`.** Whether it removes only the link or recurses into the files the link points at depends on the PowerShell version and the kind of link, and where it recurses, a re-run deletes this repo's own skill directories. `[System.IO.Directory]::Delete($link, $false)` removes the link alone, and the `elseif` handles a real directory, which is what a first install finds.
 
 If linking is genuinely impossible on this machine, copy instead — but then say plainly that the copies will drift and that `git pull` won't update them.
 

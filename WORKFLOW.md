@@ -15,7 +15,7 @@ idea ──▶ /plan-with-me ──▶ /to-spec ──┬──▶ /implement �
 
 **`/plan-with-me`** runs an interview that works a design tree until the frontier is empty, then records what got settled as glossary terms and ADRs. Start here whenever the shape of the work is still open. The agent finds and presents facts so you make decisions.
 
-**`/prototype`** writes throwaway code to answer one design question. Use it only when a question survived the interview because nobody has seen the thing run yet.
+**`/prototype`** writes throwaway code to answer one design question. Use it only when a question survived the interview because nobody has seen the thing run yet. It is not in this repo: install it from [mattpocock/skills](https://github.com/mattpocock/skills) if you want it.
 
 **`/to-spec`** turns the conversation into a spec on the issue tracker. It does not interview you. It synthesizes what you already discussed. It ends by recommending either tickets or implementing the spec as it stands, and explains its reasoning.
 
@@ -27,7 +27,7 @@ idea ──▶ /plan-with-me ──▶ /to-spec ──┬──▶ /implement �
 
 **`code-review`** runs two reviews of the diff in parallel. Standards asks whether the code follows this repo's documented standards plus a fixed smell baseline. Spec asks whether the code does what the issue asked for. The two are reported side by side and never merged, so one cannot mask the other. Both implement skills call it before they finish.
 
-**`pr`** writes the PR body: a diagram or diff-sketch summary, before and after evidence, and a note on whether the merge is a one-way or two-way door.
+**`pr`** writes the PR body: a summary of what the change makes possible, before and after evidence, and a note on whether the merge is a one-way or two-way door.
 
 ## Starting from the codebase
 

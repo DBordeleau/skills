@@ -1,6 +1,6 @@
 ---
 name: setup-workflow
-description: "Configure a repo for this workflow: issue tracker, labels, conventions, domain docs, environment notes and the branch-name hook, all committed. Run once per repo before the other skills."
+description: "Configure a repo for this workflow: issue tracker, labels, conventions, domain docs, environment notes and the branch-name hook, all committed. Run it before the other skills, and again whenever a fragment changes upstream."
 disable-model-invocation: true
 ---
 
@@ -21,6 +21,7 @@ docs/agents/conventions.md     ← attribution, branch names, commits, cleanup, 
 docs/agents/domain.md          ← where GLOSSARY.md and ADRs live, and how to read them
 docs/agents/environment.md     ← shell, dev server, checks: the per-machine gotchas
 .githooks/pre-push             ← branch-name enforcement
+.gitattributes                 ← the LF line that keeps the hook's shebang working
 ```
 
 This is a prompt-driven skill, not a script. Explore, present what you found, confirm, then write.
@@ -93,7 +94,7 @@ Each fragment opens with a provenance comment holding the literal `COMMIT`. Repl
 
 Before creating one, check whether a label already fills that role under a different name, and count the issues holding it (`gh issue list --state all --limit 200 --json labels`). Rename those instead of creating a duplicate, as [fragments/labels.md](./fragments/labels.md) says, and report the count you moved. A repo that has been through the older `setup-matt-pocock-skills` will have `needs-triage` for what this vocabulary calls `needs-planning`, and may have `ready-for-agent` for `ready-for-implementation`.
 
-**Install the hook.** Copy [hooks/pre-push](./hooks/pre-push) to `.githooks/pre-push`, make it executable, and point git at it: `git config core.hooksPath .githooks`. `core.hooksPath` is local config, so it doesn't travel with a clone — add it to whatever the project already runs on install (an npm `prepare` script, a bootstrap task) so a fresh clone is covered, and say in `docs/agents/environment.md` how to set it by hand.
+**Install the hook.** Add the line `.githooks/* text eol=lf` to the repo's `.gitattributes` if it isn't there, creating the file if needed, so a CRLF checkout can't break the shebang. Copy [hooks/pre-push](./hooks/pre-push) to `.githooks/pre-push` and stage it with `git add --chmod=+x .githooks/pre-push`. A plain `chmod +x` is not enough: on Windows git records the file as `100644`, and a clone on Linux or macOS then skips the hook because it isn't executable. Point git at the hook directory: `git config core.hooksPath .githooks`. `core.hooksPath` is local config, so it doesn't travel with a clone — add it to whatever the project already runs on install (an npm `prepare` script, a bootstrap task) so a fresh clone is covered, and say in `docs/agents/environment.md` how to set it by hand.
 
 If a `pre-push` hook already exists, extend it rather than replacing it, and add a test for the branch-name check if the repo has somewhere tests live.
 
@@ -105,10 +106,11 @@ Commit everything in one commit, as the user, with no tool credit. Follow the co
 
 If you are on the default branch, branch first, as `docs/agents/conventions.md` requires. Where the branch name needs an issue number and there is no issue for this, commit to a local branch with a placeholder name and stop there. Opening an issue and a pull request publishes to the tracker, so ask the user before doing either, and tell them the branch is waiting.
 
-Then check your own work and report it in five lines:
+Then check your own work and report each of these in one line:
 
 - `git status` is clean of the files you wrote.
 - The labels exist (`gh label list`).
+- The hook is committed executable with LF endings: `git ls-files -s .githooks/pre-push` starts with `100755`, and `git ls-files --eol .githooks/pre-push` shows `i/lf`.
 - The hook fires: on a throwaway branch with a bad name, a dry-run push is rejected (`git push --dry-run origin HEAD:refs/heads/bad-name`), and a well-named one isn't.
 - Each `docs/agents/*.md` file has its placeholders filled, with no `<!-- fill in -->` and no `@COMMIT` left.
 
@@ -122,10 +124,12 @@ For each `docs/agents/<name>.md` that carries a provenance line:
 2. Write the fragment as it was then, and as it is now, to two temporary files outside the repo:
    - `git -C $SKILLS show BASE:skills/setup-workflow/fragments/<fragment>.md > base.md`
    - `git -C $SKILLS show HEAD:skills/setup-workflow/fragments/<fragment>.md > other.md`
+
+   Run these in a POSIX shell, or in PowerShell wrap each one in `cmd /c "<command>"`. Windows PowerShell 5.1's own `>` writes UTF-16, and `git merge-file` then refuses the files as binary.
 3. If those two are identical, nothing changed upstream. Leave the file alone and move on.
 4. Otherwise merge the upstream change into the repo's copy, keeping its local edits:
    - `git merge-file docs/agents/<name>.md base.md other.md`
-   - It edits the repo's copy in place. Exit 0 means a clean merge. A positive exit is the number of conflicts, left in the file as `<<<<<<<` markers.
+   - It edits the repo's copy in place. Exit 0 means a clean merge. An exit from 1 to 127 is the number of conflicts, left in the file as `<<<<<<<` markers. A higher exit, such as 255, is an error and the file is unchanged: read the message, fix the cause, and run the merge again.
 5. Resolve any conflict by hand, in favour of the local side when the two say the same thing differently, and in favour of upstream when upstream states a new rule. Show the user each conflict you resolved and how.
 6. Update the provenance line to the new commit.
 
@@ -133,4 +137,4 @@ Then report, per file: unchanged, merged cleanly, or merged with conflicts you r
 
 Re-run the label and hook steps too, since both are idempotent: a renamed label role or a changed hook will not have reached the repo either. Ask before renaming a label a second time.
 
-Finish by naming the daily loop the repo is now set up for: `/plan-with-me` → `/to-spec` → `/to-tickets` if advised → `/implement` or `/implement-spec` → `code-review` → `pr`. Mention that `docs/agents/*.md` can be edited directly later, and that re-running this skill is only needed to switch trackers or start over.
+Finish by naming the daily loop the repo is now set up for: `/plan-with-me` → `/to-spec` → `/to-tickets` if advised → `/implement` or `/implement-spec` → `code-review` → `pr`. Mention that `docs/agents/*.md` can be edited directly later, and that re-running this skill brings in later fragment changes without losing those edits.
