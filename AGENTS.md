@@ -58,7 +58,12 @@ Get-ChildItem "$REPO\skills" -Directory | ForEach-Object {
 
 If linking is genuinely impossible on this machine, copy instead — but then say plainly that the copies will drift and that `git pull` won't update them.
 
-**5. Install the shared policy.** [policy/global.md](policy/global.md) is the machine-level block that applies to every project. Add it to each tool's global instruction file (`~/.claude/CLAUDE.md` for Claude Code, `~/.agents/AGENTS.md` for agents.md tools), under its own `## Workflow policy` heading. If a block with that heading is already there, replace it rather than appending a second one. Don't delete the user's own notes around it.
+**5. Install the shared policy.** [policy/global.md](policy/global.md) is the machine-level block that applies to every project. Add it to each tool's global instruction file: `~/.claude/CLAUDE.md` for Claude Code, `~/.agents/AGENTS.md` for agents.md tools. Create the file if it isn't there.
+
+- Put it under its own `## Workflow policy` heading. If a block with that heading already exists, replace it rather than appending a second one.
+- Drop the file's own `# Workflow policy` title line, and demote its `##` headings to `###`, so they nest under the heading you just added instead of becoming its siblings. If the host file's own sections are `#`, match that instead and demote one level less.
+- Add a line under the heading saying where the block came from and that it is edited in the repo, not in place.
+- Don't delete the user's own notes around it, even where the block now covers the same ground. Their rules are live until `/setup-workflow` has run in each repo and written `docs/agents/*.md`. Say which of their sections the block duplicates, and leave removing them to them.
 
 **6. Verify, and report in four lines.** Every skill in `skills/` resolves through its link at each tool path; the superseded skills from step 3 are gone; the policy block appears exactly once per file; and the backup from step 3 is where you said it is. List the installed skill names so the user can see what they have.
 
