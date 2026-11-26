@@ -39,12 +39,12 @@ The upper diagram is the feature path and the lower one is the bug path. They me
 
 ## The bug path
 
-**`report-bug`** files a bug report: a defect as someone observed it, before anyone has investigated it. It proposes no fix. Run `/report-bug` when you see a bug. Agents use it too, for a defect they find outside their task: a sub-agent puts the defect in its report, and the session you are talking to files every bug report once, at the end of its run. Each bug report says whether it has a reproduction, and the session lists what it filed in its closing message and in the PR body.
+**`report-bug`** files a bug report, which describes a defect as someone observed it, before anyone has investigated it. It proposes no fix. Run `/report-bug` when you see a bug. Agents use it too, for a defect they find outside their task. A sub-agent puts the defect in its report, and the session you are talking to files every bug report once, at the end of its run. Each bug report says whether it has a reproduction, and the session lists what it filed in its closing message and in the PR body.
 
-**`/diagnose`** takes one bug report to a root cause you have confirmed. It runs only when you invoke it. An investigator sub-agent works in a throwaway worktree and builds a reproduction before it forms any theory. Two gates wait for you:
+**`/diagnose`** takes one bug report to a root cause you have confirmed. It runs only when you invoke it. An investigator sub-agent works in a throwaway worktree and builds a reproduction before it forms any theory. The run stops at two gates and waits for your answer at each:
 
 1. A root cause reaches you only with a reproduction beside it. With no reproduction, the run takes the cannot-reproduce exit.
-2. No fix is designed until you confirm the root cause, choose which other places with the same mistake are in scope, and confirm where the regression test sits.
+2. `/diagnose` designs no fix until you confirm the root cause, choose which other places with the same mistake are in scope, and confirm where the regression test sits.
 
 Then you pick one exit:
 

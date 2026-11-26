@@ -11,9 +11,9 @@ Read `docs/agents/issue-tracker.md` and `docs/agents/labels.md` first. If they d
 
 ## Who files
 
-**A sub-agent reports the bug and stops there.** Put it in your report to the session that dispatched you: what happens, what should happen, the reproduction or the four facts from the evidence bar below, and the evidence. That session files it. Sub-agents never write to the tracker, so that one session can merge duplicates when parallel sub-agents hit the same bug.
+**A sub-agent reports the defect and stops there.** Put it in your report to the session that dispatched you: what happens, what should happen, the reproduction or the four facts from the evidence bar below, and the evidence. That session files it. Sub-agents never write to the tracker, so that one session can merge duplicates when parallel sub-agents hit the same defect.
 
-**The session the user is talking to files**, once, at the end of its run. Collect the bugs that you and your sub-agents found, merge the ones that describe the same defect, and file them after the work and before your closing message. When the user ran `/report-bug`, or `/diagnose` called this skill with a description, file now, and ask the user for any of the four facts below that their description lacks.
+**The session the user is talking to files**, once, at the end of its run. Collect the defects that you and your sub-agents found, merge any that are the same defect, and file them after the work and before your closing message. When the user ran `/report-bug`, or `/diagnose` called this skill with a description, file now, and ask the user for any of the four facts below that their description lacks.
 
 ## What to file
 
@@ -41,7 +41,7 @@ Search issues, open and closed, for the symptom and for the error text, using **
 - **A closed match** means the bug came back. File a new bug report, and link the closed issue under `## Evidence`.
 - **No match**: file a new bug report.
 
-One bug goes in one issue. Two defects get two bug reports, even when one session found both.
+One bug goes in one issue. Two defects get two bug reports, even when one session found both. The same mistake seen in more than one place is one defect, and it goes in one bug report that names each place. The exception is `/diagnose`, which files each place the user leaves out of scope as its own bug report.
 
 ## Writing it
 

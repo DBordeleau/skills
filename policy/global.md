@@ -35,7 +35,7 @@ Never commit or push unless the user asked. If you're on the default branch, bra
 
 ## File the bugs you find outside your task
 
-A defect that existed before your task and sits outside it goes to the `report-bug` skill, and your diff stays on your task. A sub-agent puts the bug and its evidence in its report, and the session the user is talking to files it.
+A defect that existed before your task and sits outside it goes to the `report-bug` skill, and your diff stays on your task. A sub-agent puts the defect and its evidence in its report, and the session the user is talking to files it.
 
 ## Delegate the expensive work
 

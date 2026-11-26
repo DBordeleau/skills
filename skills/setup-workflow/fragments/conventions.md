@@ -38,7 +38,7 @@ Clean up as part of finishing, not "later":
 
 - Remove every worktree a session created, then `git worktree prune`.
 - Delete ticket branches once they're merged into their integration branch. They stay local and are never pushed.
-- Only integration branches and `/implement` branches reach the remote.
+- Only integration branches, `/implement` branches and `/diagnose` fix branches reach the remote.
 
 A skill that creates worktrees is not done until they're gone. Say so explicitly in the final report.
 
