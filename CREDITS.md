@@ -34,7 +34,7 @@ Rewritten or reframed:
 
 `pr` comes from Matt's repo, which credits [show-me](https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md) by Dex Horthy at Humanlayer. See [skills/pr/CREDITS.md](skills/pr/CREDITS.md).
 
-Its Summary section is replaced. Upstream offers a menu of structural views, and in practice the one that got picked was a diff sketch of the file tree, which describes the edit rather than the gain and goes stale on the next commit. The section now asks for one sentence and one visual that carries the benefit: a before and after table, a Mermaid flowchart or state diagram, or a numbers table. Structural views are still allowed, below the Summary, under their own heading. The Evidence and Merge Danger sections are unchanged.
+Its Summary section is replaced. Upstream offers a menu of structural views, and in practice the one that got picked was a diff sketch of the file tree, which describes the edit rather than the gain and goes stale on the next commit. The section now asks for one sentence and one visual that carries the benefit: a before and after table, a Mermaid flowchart or state diagram, or a numbers table. Structural views are still allowed, below the Summary, under their own heading. The Evidence section now asks for the real output of the test run, with pseudocode only to show what the test does, and adds a line for a bug fix. The Merge Danger section is unchanged.
 
 ## Everything else
 

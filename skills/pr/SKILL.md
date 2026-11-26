@@ -117,9 +117,9 @@ Concrete evidence that the change works. Show a before and after.
 
 Screenshots are S-tier - when the environment is set up for it and the change is visual.
 
-Execution-based evidence is A-tier. Test results, console output. Show the exact test that now fails and passes, using pseudocode.
+Execution-based evidence is A-tier. Test results, console output. Paste the real output of the run where the test fails before the change and the run where it passes after. Use pseudocode only to show what the test does, beside that output and never in its place.
 
-For a bug fix, show the real output that `## Fixing a bug` in `tdd` has the implementer keep, copied from the implementer's report, in place of the pseudocode.
+For a bug fix, the output is what `## Fixing a bug` in `tdd` has the implementer keep. Copy it from the implementer's report.
 
 ### Merge Danger
 
