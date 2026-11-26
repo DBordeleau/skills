@@ -47,3 +47,7 @@ You are the orchestrator: you hold the task graph and the pointers, not the code
 8. Call the Skill tool with `report-bug` once, for every bug the subagents and the review found outside their work. Then, if a draft PR exists, mark it ready for review. Otherwise, resolve each ticket in scope the way the issue tracker closes work, and report the integration branch. Write the PR body with the `pr` skill, as the user: no co-author or tool credit.
 
 9. Clean up, as `docs/agents/conventions.md` requires: remove every **implementer subagent** worktree, prune stale worktrees, and delete the merged ticket branches. You are not done until this is done — say so explicitly in your final report.
+
+---
+
+Adapted from `implement-spec` in [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT. See [LICENSE](./LICENSE).

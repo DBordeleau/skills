@@ -13,7 +13,7 @@ The rule text is byte-identical to upstream, numbering gaps included, so the rul
 
 ## mattpocock/skills
 
-Most of this repo began as a subset of [mattpocock/skills](https://github.com/mattpocock/skills) by Matt Pocock, taken on 2026-11-25 and adapted. Thanks to him for the originals.
+Most of this repo began as a subset of [mattpocock/skills](https://github.com/mattpocock/skills) by Matt Pocock, taken on 2026-11-25 and adapted. Thanks to him for the originals. His repo is MIT licensed, Copyright (c) 2026 Matt Pocock, and each skill listed below keeps a copy of the license in its own `LICENSE` file.
 
 Carried over close to as written:
 

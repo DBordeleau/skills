@@ -47,3 +47,7 @@ These rules hold for every bug fix, on top of the loop above. The sections they 
 - **Green, then the original reproduction.** Run the regression test, see it pass, and keep that output too. Then rerun the original, unminimised reproduction from `## Problem` and see it pass, since a new test passing does not show the symptom is gone. Then run the full suite.
 - **Three failed attempts stop the work.** An attempt fails when the regression test or the original reproduction is still red after it. Revert each failed attempt before the next, so every attempt starts from the same code. After the third, stop, and report what each attempt changed and the output it left. The root cause is probably wrong, and the session that dispatched you decides what happens next.
 - **When no test can fail on the bug,** the fix spec says why and that the user approved it. The original reproduction is then the proof: keep its failing output from before the fix and its passing output from after.
+
+---
+
+Adapted from `tdd` in [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT. See [LICENSE](./LICENSE).

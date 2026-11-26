@@ -138,3 +138,7 @@ Then report, per file: unchanged, merged cleanly, or merged with conflicts you r
 Re-run the label and hook steps too, since both are idempotent: a renamed label role or a changed hook will not have reached the repo either. Ask before renaming a label a second time.
 
 Finish by naming the daily loop the repo is now set up for, as `WORKFLOW.md` in the skills repo draws it. The feature path is `/plan-with-me` → `/to-spec` → `/to-tickets` if advised → `/implement` or `/implement-spec` → `code-review` → `pr`. The bug path is `report-bug` → `/diagnose`, which stops twice for the user and then either fixes the bug now through `code-review` and `pr`, or leaves a fix spec for `/implement` or `/to-tickets`. Mention that `docs/agents/*.md` can be edited directly later, and that re-running this skill brings in later fragment changes without losing those edits.
+
+---
+
+Adapted from `setup-matt-pocock-skills` in [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT. See [LICENSE](./LICENSE).

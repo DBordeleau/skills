@@ -102,3 +102,7 @@ An implementer on a fix spec stops and reports when the regression test passes b
 5. Tell the user that `/diagnose` takes the issue from here.
 
 Step 8's rule for a failing suite stays as it is: a full suite that fails after the fix went green is a job for an implementer, not a reason to send the fix spec back.
+
+---
+
+Adapted from `implement` in [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT. See [LICENSE](./LICENSE).

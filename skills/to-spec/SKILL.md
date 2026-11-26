@@ -94,3 +94,7 @@ Recommend **`/implement`** (the spec as it stands) when none of them is:
 - nothing in it is worth a separate PR.
 
 Don't hedge. Pick one, name the reason that decided it, and name the runner-up only if it was close. If you recommend tickets, say roughly how many you expect and what the first one would be.
+
+---
+
+Adapted from `to-spec` in [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT. See [LICENSE](./LICENSE).
