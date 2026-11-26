@@ -59,6 +59,7 @@ One slice, one sub-agent, serially (they share the working tree, so they cannot 
 - calls the Skill tool with `tdd` and builds the slice test-first at those seams;
 - runs the typechecker and the slice's own tests itself, until green;
 - commits to the branch, following the repo's commit conventions;
+- puts any defect it finds outside its slice in its report, with its evidence, as `report-bug` describes for a sub-agent, and leaves it unfixed and unfiled;
 - reports back **under 200 words**: what it built, what it committed, which seams it tested, anything it hit that changes the plan.
 
 If an implementer reports something that changes the plan, re-plan the remaining slices before dispatching the next one.
@@ -75,10 +76,11 @@ When every slice is green, dispatch one sub-agent to run the **full** suite, the
 
 ### 9. Review and fix
 
-Call the Skill tool with `code-review` against the point you branched from. Fix everything it raises in a **single fresh implementer sub-agent**, given the review findings and the notes path.
+Call the Skill tool with `code-review` against the point you branched from. Fix everything it raises in a **single fresh implementer sub-agent**, given the review findings and the notes path. Defects it lists as older than the diff are bug reports to file in step 10, not findings to fix.
 
 ### 10. Finish
 
+- File the bugs your sub-agents and the review found outside the work: call the Skill tool with `report-bug` once, for all of them together.
 - Push the branch.
 - If a draft PR exists, mark it ready for review. Otherwise resolve each ticket in scope the way the issue tracker closes work, and report the branch.
 - Clean up: remove any worktree you created, prune stale ones, and delete merged local branches, as `docs/agents/conventions.md` requires. You are not done until this is done.

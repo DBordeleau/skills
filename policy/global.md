@@ -33,6 +33,10 @@ Commit subjects are **not** Conventional Commits: the conventional prefix lives 
 
 Never commit or push unless the user asked. If you're on the default branch, branch first.
 
+## File the bugs you find outside your task
+
+A defect that existed before your task and sits outside it goes to the `report-bug` skill, and your diff stays on your task. A sub-agent puts the bug and its evidence in its report, and the session the user is talking to files it.
+
 ## Delegate the expensive work
 
 Your context is re-sent on every turn, so the cost of a session is roughly its turns times its context size. Both get away from you the same way: by doing the work in the orchestrating window.

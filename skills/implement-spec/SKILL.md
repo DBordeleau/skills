@@ -35,14 +35,15 @@ You are the orchestrator: you hold the task graph and the pointers, not the code
 4. Use a fresh **implementer subagent** for each ticket, each in its own worktree on its own branch. Each implementer subagent:
    - confirms its worktree is based on the integration branch before starting, and resets onto it if not;
    - calls the Skill tool with `tdd` to build the ticket;
+   - puts any defect it finds outside its ticket in its report, with its evidence, as `report-bug` describes for a subagent, and leaves it unfixed and unfiled;
    - merges the integration branch tip into its own branch before reporting done
 
 5. Once an **implementer subagent** completes, merge its work to the integration branch with a **merger subagent**. The merger also brings the exploration notes up to date with the merged diff, creating them if step 2 was skipped: under a heading for the ticket, the files it added or moved, the interface it exports, and the test harnesses and fixtures it left; any earlier note the merge contradicts is rewritten in place. The merger is done when every note describes the integration branch as it stands after the merge.
 
 6. If this changes the **frontier** of available tickets, kick off more **implementer subagents** to work on the new tickets, pointing each at the refreshed notes and at the sections for its blockers. This allows for maximum concurrency.
 
-7. Once every ticket in scope is complete, call the Skill tool with `code-review` on the integration branch. Fix all issues raised by the code review in a single fresh **implementer subagent**.
+7. Once every ticket in scope is complete, call the Skill tool with `code-review` on the integration branch. Fix all issues raised by the code review in a single fresh **implementer subagent**. Defects it lists as older than the diff are bug reports to file in step 8, not issues to fix.
 
-8. If a draft PR exists, mark it ready for review. Otherwise, resolve each ticket in scope the way the issue tracker closes work, and report the integration branch. Write the PR body with the `pr` skill, as the user: no co-author or tool credit.
+8. Call the Skill tool with `report-bug` once, for every bug the subagents and the review found outside their work. Then, if a draft PR exists, mark it ready for review. Otherwise, resolve each ticket in scope the way the issue tracker closes work, and report the integration branch. Write the PR body with the `pr` skill, as the user: no co-author or tool credit.
 
 9. Clean up, as `docs/agents/conventions.md` requires: remove every **implementer subagent** worktree, prune stale worktrees, and delete the merged ticket branches. You are not done until this is done — say so explicitly in your final report.
