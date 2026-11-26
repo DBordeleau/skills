@@ -126,3 +126,7 @@ For a bug fix, the output is what `## Fixing a bug` in `tdd` has the implementer
 Describe whether it's a one-way or two-way door. You can walk back through two-way doors, but not one-way doors. A PR that is cheap to roll back is lower risk. Changes that involve destructive actions or hard-to-reverse decisions are one-way doors.
 
 The blast radius is the potential impact or scope of the changes introduced by this PR. Consider all possibilities. Examples are layout shift, breakages for consumers, mobile responsiveness, etc.
+
+---
+
+Adapted from [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT, and from [`show-me`](https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md) in humanlayer/skills, by Dex Horthy at HumanLayer, MIT. See [LICENSE](./LICENSE) and [CREDITS.md](./CREDITS.md).
