@@ -23,7 +23,7 @@ Colours, when creating them: `needs-planning` `fbca04`, `ready-for-implementatio
 - **`/to-tickets`** gives every ticket it files `ready-for-implementation` + `ticket`.
 - **`report-bug`** gives every bug report it files `bug` + `needs-planning`.
 - **`/diagnose`** keeps `bug` on every bug report it diagnoses into a fix spec. Both fix exits, "fix now" and "spec and stop", remove `needs-planning` and add `ready-for-implementation` + `spec` in the same edit that rewrites the body as the fix spec. A bug report it cannot reproduce gets `needs-info` beside `needs-planning`, and a rerun of `/diagnose` removes `needs-info`. Behaviour that is intended or not worth fixing gets `wontfix`, loses `needs-planning`, keeps `bug`, and is closed. A missing feature or a design change loses `bug` and keeps `needs-planning`.
-- **`/implement` on a fix spec whose root cause proves wrong** removes `ready-for-implementation` + `spec` and adds `needs-planning`, keeping `bug`, so the issue goes back to `/diagnose`.
+- **`/implement` on a fix spec whose root cause proves wrong, or whose fix fails three attempts,** removes `ready-for-implementation` + `spec` and adds `needs-planning`, keeping `bug`, so the issue goes back to `/diagnose`.
 - Other issue-type labels the repo already uses (`enhancement`, `refactor`) are orthogonal: keep them, and don't replace one with a label from this table.
 
 Create any of these the tracker is missing before the first label write of a session.

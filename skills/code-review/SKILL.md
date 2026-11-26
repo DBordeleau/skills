@@ -71,6 +71,8 @@ Issue both sub-agent calls together, in the foreground, and aggregate the report
 - The path or fetched contents of the spec.
 - The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. List separately, under "Older than the diff", any defect you notice that the diff did not introduce, with the file path and what you saw. Under 400 words."
 
+When the spec is a **fix spec**, one labelled Bug, or marked `**Type:** bug` on a local tracker, whose body has `## Root cause` and `## Regression test`, the Spec sub-agent also gets the PR number when a PR exists, and the implementer's report when your caller passed it. Add to its brief: "(d) the fix against the fix spec: the change sits at the code `## Root cause` names and in the places `## Fix` lists, and a change at the symptom instead is a finding; the regression test `## Regression test` describes is in the diff, at that seam, asserting on the symptom `## Problem` describes; and its failing output from before the fix is in the PR body's `## Evidence` or in the implementer's report. A missing regression test or missing failing output is a finding. When the fix spec records that no test can fail on the bug, look for the original reproduction's failing output instead."
+
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
 
 ### 5. Aggregate

@@ -40,6 +40,8 @@ Use this template for writing the PR body:
 
 Skip all preambles and keep prose brief. Use the user's domain language from `GLOSSARY.md`.
 
+**A bug fix PR names its root cause and shows real test output.** Its Summary states the root cause, from the fix spec's `## Root cause`, and the line below the visual says the PR closes the fix spec's issue. Its Evidence shows the regression test's real failing output from before the fix and its passing output from after, copied from the implementer's report. For a bug fix, that real output replaces the pseudocode `### Evidence` asks for. When the fix spec records that no test can fail on the bug, show the original reproduction's failing and passing output instead.
+
 ### Summary
 
 One sentence, then one visual. The sentence says what a person can now do that they could not before, or what now holds that did not. The visual shows the same thing at a glance.
