@@ -24,4 +24,4 @@ Create a new file under `.scratch/<NN>-<feature-slug>/` (creating the directory 
 
 ## When a skill says "fetch the relevant ticket"
 
-Read the file at the referenced path. The user will normally pass the path or the issue number directly.
+Read the file at the referenced path. The user will normally pass the path or the issue number directly. A path always wins over a number. When a number alone matches both a feature at `.scratch/<NN>-<feature-slug>/` and a bug report at `.scratch/bugs/<NN>-<slug>.md`, ask the user which one they mean. `/diagnose <NN>` reads only bug reports, so its number names one file.
