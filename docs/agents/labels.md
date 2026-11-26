@@ -26,7 +26,7 @@ Colours, when creating them: `needs-planning` `fbca04`, `ready-for-implementatio
 - **`/implement` on a fix spec whose root cause proves wrong, or whose fix fails three attempts,** removes `ready-for-implementation` + `spec` and adds `needs-planning`, keeping `bug`, so the issue goes back to `/diagnose`.
 - Other issue-type labels the repo already uses (`enhancement`, `refactor`) are orthogonal: keep them, and don't replace one with a label from this table.
 
-In this repo, `needs-info` is GitHub's default `question` label, renamed. `bug` is GitHub's default label of that name, now in the table above. The other GitHub defaults (`documentation`, `duplicate`, `enhancement`, `good first issue`, `help wanted`, `invalid`, `accessibility`) are type labels and stay.
+In this repo, `needs-info` is GitHub's default `question` label, renamed. `bug` is GitHub's default label of that name, now in the table above. The other GitHub defaults (`documentation`, `duplicate`, `enhancement`) are type labels and stay.
 
 Create any of these the tracker is missing before the first label write of a session.
 
