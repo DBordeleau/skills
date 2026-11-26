@@ -79,7 +79,7 @@ Effort: <medium|high>
 
 **Blocked by:** the numbers/titles of the tickets that gate this one, or "None (can start immediately)".
 
-**Status:** ready to implement
+**Status:** ready-for-implementation
 
 - [ ] Acceptance criterion 1
 - [ ] Acceptance criterion 2
