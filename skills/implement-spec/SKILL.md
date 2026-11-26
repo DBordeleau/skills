@@ -34,7 +34,7 @@ You are the orchestrator: you hold the task graph and the pointers, not the code
 
 4. Use a fresh **implementer subagent** for each ticket, each in its own worktree on its own branch. Each implementer subagent:
    - confirms its worktree is based on the integration branch before starting, and resets onto it if not;
-   - calls the Skill tool with `tdd` to build the ticket, following its `## Fixing a bug` rules when the spec is a fix spec;
+   - calls the Skill tool with `tdd` to build the ticket, following its `## Fixing a bug` rules when the spec is a fix spec, and putting the output those rules say to keep in its report;
    - puts any defect it finds outside its ticket in its report, with its evidence, as `report-bug` describes for a subagent, and leaves it unfixed and unfiled;
    - merges the integration branch tip into its own branch before reporting done
 
@@ -42,7 +42,7 @@ You are the orchestrator: you hold the task graph and the pointers, not the code
 
 6. If this changes the **frontier** of available tickets, kick off more **implementer subagents** to work on the new tickets, pointing each at the refreshed notes and at the sections for its blockers. This allows for maximum concurrency.
 
-7. Once every ticket in scope is complete, call the Skill tool with `code-review` on the integration branch. Fix all issues raised by the code review in a single fresh **implementer subagent**. Defects it lists as older than the diff are bug reports to file in step 8, not issues to fix.
+7. Once every ticket in scope is complete, call the Skill tool with `code-review` on the integration branch. On a fix spec, pass it the implementers' reports that hold the regression tests' output. Fix all issues raised by the code review in a single fresh **implementer subagent**. Defects it lists as older than the diff are bug reports to file in step 8, not issues to fix.
 
 8. Call the Skill tool with `report-bug` once, for every bug the subagents and the review found outside their work. Then, if a draft PR exists, mark it ready for review. Otherwise, resolve each ticket in scope the way the issue tracker closes work, and report the integration branch. Write the PR body with the `pr` skill, as the user: no co-author or tool credit.
 

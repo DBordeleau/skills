@@ -5,7 +5,7 @@ description: Test-driven development. Use when the user wants to build features 
 
 # Test-Driven Development
 
-TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, the rules of the loop, and the rules for fixing a bug. Every section applies on every cycle: consult them before and during the loop, not after.
+TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, the rules of the loop, and the rules for fixing a bug. Every section but `## Fixing a bug` applies on every cycle, and that one applies on every cycle of a bug fix: consult them before and during the loop, not after.
 
 When exploring the codebase, read `GLOSSARY.md` (if it exists) so test names and interface vocabulary match the project's domain language, and respect ADRs in the area you're touching.
 

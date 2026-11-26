@@ -33,7 +33,7 @@ So:
 
 Fetch the ticket or spec from the issue tracker and state its title before starting. If the reference is ambiguous, ask.
 
-A spec labelled Bug, or marked `**Type:** bug` on a local tracker, whose body has `## Root cause` and `## Regression test` is a **fix spec**, written by `/diagnose`. Steps 2, 4, 6, 7 and 9 each say what changes for one, and `## When a fix spec's root cause proves wrong` says when to stop.
+A **fix spec** is a spec labelled Bug, or marked `**Type:** bug` on a local tracker, whose body opens with an effort line and has `## Root cause` and `## Regression test`. A ticket whose parent is a fix spec counts as one, and takes those sections from its parent. `/diagnose` writes fix specs. Steps 2, 4, 6, 7 and 9 each say what changes for one, and `## When a fix spec's root cause proves wrong` says when to stop.
 
 ### 2. Branch
 
@@ -66,13 +66,13 @@ One slice, one sub-agent, serially (they share the working tree, so they cannot 
 - puts any defect it finds outside its slice in its report, with its evidence, as `report-bug` describes for a sub-agent, and leaves it unfixed and unfiled;
 - reports back **under 200 words**: what it built, what it committed, which seams it tested, anything it hit that changes the plan.
 
-On a fix spec, the brief also tells the implementer to follow `## Fixing a bug` in `tdd`, and to put the regression test's failing and passing output in its report, with the original reproduction's passing output.
+On a fix spec, the brief also tells the implementer to follow `## Fixing a bug` in `tdd`, and to put the output those rules say to keep in its report.
 
 If an implementer reports something that changes the plan, re-plan the remaining slices before dispatching the next one.
 
 ### 7. Open the PR
 
-If the issue tracker closes work through PRs, or the user asks for one, push the branch and open a **draft** PR after the first slice lands (a branch with no commits ahead of the default branch can't open one), marked as closing the tickets in scope. It closes the spec too only when the work leaves none of its tickets open; otherwise it references the spec. A fix spec has no tickets, so its PR closes the fix spec's issue.
+If the issue tracker closes work through PRs, or the user asks for one, push the branch and open a **draft** PR after the first slice lands (a branch with no commits ahead of the default branch can't open one), marked as closing the tickets in scope. It closes the spec too only when the work leaves none of its tickets open; otherwise it references the spec. When the work is a whole fix spec, with no tickets, the PR closes the fix spec's issue.
 
 Call the Skill tool with `pr` for the body. Follow the repo's attribution rule: the PR is written as the user, with no co-author or tool credit.
 

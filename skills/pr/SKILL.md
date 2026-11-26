@@ -40,11 +40,11 @@ Use this template for writing the PR body:
 
 Skip all preambles and keep prose brief. Use the user's domain language from `GLOSSARY.md`.
 
-**A bug fix PR names its root cause and shows real test output.** Its Summary states the root cause, from the fix spec's `## Root cause`, and the line below the visual says the PR closes the fix spec's issue. Its Evidence shows the regression test's real failing output from before the fix and its passing output from after, copied from the implementer's report. For a bug fix, that real output replaces the pseudocode `### Evidence` asks for. When the fix spec records that no test can fail on the bug, show the original reproduction's failing and passing output instead.
-
 ### Summary
 
 One sentence, then one visual. The sentence says what a person can now do that they could not before, or what now holds that did not. The visual shows the same thing at a glance.
+
+For a bug fix, the sentence also states the root cause, from the fix spec's `## Root cause`. After the sentence and the visual, one line says the PR closes the fix spec's issue.
 
 The visual carries the benefit of the change, not its shape. A reviewer reads the diff for the shape. So do not open with a file tree, a diff sketch or a call stack. They describe the edit rather than the gain, they go stale on the next commit, and they push the point below the fold.
 
@@ -118,6 +118,8 @@ Concrete evidence that the change works. Show a before and after.
 Screenshots are S-tier - when the environment is set up for it and the change is visual.
 
 Execution-based evidence is A-tier. Test results, console output. Show the exact test that now fails and passes, using pseudocode.
+
+For a bug fix, show the real output that `## Fixing a bug` in `tdd` has the implementer keep, copied from the implementer's report, in place of the pseudocode.
 
 ### Merge Danger
 
