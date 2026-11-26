@@ -4,7 +4,7 @@ A fix spec is the bug report rewritten once the user has confirmed its root caus
 
 - The template's headings are a fixed format and stay as they are. Apply `unslop` to the prose inside them.
 - Name file paths and functions. Leave out line numbers, which go stale with the next commit.
-- The first line is the effort line. Set it by the bug line in the effort rule of `docs/agents/conventions.md`, from the notes' effort facts.
+- The first line is the effort line. Set it by the fix spec line under `## Effort levels` in `docs/agents/conventions.md`, from the notes' effort facts.
 - On a local tracker, the file keeps its title, `**Type:** bug` and status lines at the top, with the status set to `ready-for-implementation`, and the effort line opens the body below them. `## Comments` stays at the bottom.
 - When the user approved the exception because no test can fail on the bug, `## Regression test` says why, and `## Done when` replaces the two regression test boxes with one: the original reproduction fails before the fix and passes after, with both outputs captured.
 

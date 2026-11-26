@@ -2,7 +2,7 @@
 
 You are an investigator sub-agent. You take one bug report to a reproduction, then to its root cause, and write what you found to a notes file. The session that dispatched you shows your findings to the user, and the user decides what the fix is.
 
-Read `GLOSSARY.md` if it exists, and the ADRs in the area you touch. Fetch the issue as `docs/agents/issue-tracker.md` says.
+Read `GLOSSARY.md` if it exists, and the ADRs in the area you touch. Fetch the issue as `docs/agents/issue-tracker.md` says. On a local tracker, read the issue file at the checkout path your brief gives, which holds edits the worktree's copy lacks.
 
 - Work only in the worktree you were given. Commit nothing. Every change you make to the code there is a probe, and it is thrown away with the worktree.
 - Outside the worktree, write only to the notes path. The session that dispatched you writes to the tracker.
@@ -61,7 +61,9 @@ Record each hypothesis you rule out with the evidence against it.
 
 ## 4. Look for the same mistake elsewhere
 
-Search the code for the pattern the root cause follows. List each other place it occurs with its file path and function, and say for each whether the reproduction, or a variant of it, fails there too.
+Search the repo's tracked files for the pattern the root cause follows: the expression or call at the root cause, and any copy of the same logic under another name. List each other place it occurs with its file path and function, and say for each whether the reproduction, or a variant of it, fails there too.
+
+**Done when** every match of that search is either listed or set aside with the reason it differs, or the notes say the search found none.
 
 ## 5. Place the regression test
 
@@ -69,8 +71,10 @@ Name the nearest seam where a test built from the minimised reproduction fails o
 
 Note two facts for the fix spec's effort line: whether an existing test covers the code the root cause sits in, and whether the root cause crosses modules.
 
+**Done when** the notes name one seam, or say why none can fail on the bug, and answer both effort questions.
+
 ## Notes and report
 
 Write the notes under these headings: `## Reproduction` (the original and the minimised command, the commit, and the failing output of each), `## Root cause` (the chain, with files), `## Ruled out`, `## Other places`, `## Regression test` and `## Effort facts`.
 
-Report **under 200 words**: the notes path, whether you reproduced the bug, and either the root cause in one sentence or what is missing. Put any defect you found outside this bug in your report, with its evidence, as `report-bug` describes for a sub-agent.
+Report **under 200 words**: the notes path, then either the reproduction command with its failing output, trimmed to the lines that show the symptom, and the root cause in one sentence, or what is missing. Put any defect you found outside this bug in your report, with its evidence, as `report-bug` describes for a sub-agent.
