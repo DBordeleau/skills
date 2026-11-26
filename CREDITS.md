@@ -28,6 +28,7 @@ Rewritten or reframed:
 - `to-spec` now ends by recommending either tickets or implementing the spec as it stands.
 - `implement` now delegates the build to sub-agents instead of doing it in the orchestrating context.
 - `setup-workflow` is his `setup-matt-pocock-skills` with a changed label vocabulary and the unused tracker fragments dropped. It also writes a conventions doc and an environment doc, installs the branch-name hook, and commits its own output.
+- `diagnose` is his `diagnosing-bugs`, taken at commit [`6f7f783`](https://github.com/mattpocock/skills/tree/6f7f7831a625f040a8e06a0e7954826b87ce775a/skills/engineering/diagnosing-bugs). It is MIT licensed, Copyright (c) 2026 Matt Pocock, and the license is kept at [skills/diagnose/LICENSE](skills/diagnose/LICENSE). Four of his steps survive in `skills/diagnose/INVESTIGATE.md`: a reproduction before any theory, a minimised reproduction, ranked falsifiable hypotheses, and tagged debug logs. Three things changed. Sub-agents do the investigation, the issue tracker records the result, and the user confirms the root cause before anyone designs a fix. His fix phase became `## Fixing a bug` in `tdd`. The skill is user-only, because his fired on quick questions that wanted a direct answer.
 
 ## The pr skill
 
@@ -38,3 +39,5 @@ Its Summary section is replaced. Upstream offers a menu of structural views, and
 ## Everything else
 
 The smell baseline in `code-review` condenses the code smells from chapter 3 of Martin Fowler's _Refactoring_.
+
+`report-bug` and `diagnose` take ideas, not text, from other workflows. Claude Code's issue automation gave the duplicate rules. The bug report templates of BMAD and Mozilla gave the rule that a bug report proposes no fix. compound-engineering's debug skill gave the definition of a reproduction and the gate before a root cause reaches the user.

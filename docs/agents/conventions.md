@@ -56,4 +56,6 @@ Every ticket body opens with `Effort: medium` or `Effort: high`, and each ticket
 
 `medium` for everything else: UI wiring, styling, copy, new routes, and tickets that copy a pattern another ticket already set up.
 
+A fix spec opens with the effort line too, and `/diagnose` sets it: `high` when no existing test covers the code the fix changes or the root cause crosses modules, `medium` otherwise.
+
 The effort sets how much reasoning a sub-agent gets. In Claude Code, map it to the sub-agent types the machine-level policy defines; in other tools, map it to that tool's reasoning-effort setting. Merger sub-agents and the fix-up after `code-review` follow the same mapping: mergers take the `medium` setting, the post-review fix-up takes `high`.
