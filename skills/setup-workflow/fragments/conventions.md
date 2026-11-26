@@ -19,7 +19,7 @@ Two limits. Where a skill or this file specifies an exact format, the format win
 `<type>/<issue>-<slug>`:
 
 - **type**: `feat`, `fix`, `refactor`, `perf`, `test`, `docs`, `chore`.
-- **issue**: the number of the issue this branch delivers. For `/implement` and for an `/implement-spec` integration branch, that's the spec's number. For an `/implement-spec` ticket branch, it's that ticket's own number, not the spec's.
+- **issue**: the number of the issue this branch delivers. For `/implement` and for an `/implement-spec` integration branch, that's the spec's number. For an `/implement-spec` ticket branch, it's that ticket's own number, not the spec's. On a local tracker, an issue's number is the `<NN>` that opens its name in `.scratch/`: the feature directory's for a spec, the ticket file's for a ticket, and the bug report file's for a bug report.
 - **slug**: 2–5 lowercase hyphenated words naming what the branch changes, in glossary terms where they apply. Someone should be able to guess the change from the name alone. Never positional or generic words: no `part`, `tier`, `step`, `phase`, `slice`, `wip`, `misc`, `update`, and no tool names.
 
 Examples: `feat/42-electrum-wallet-detection`, `fix/149-candidate-floor-and-rookie-lookups`, `refactor/178-nhl-player-module`.

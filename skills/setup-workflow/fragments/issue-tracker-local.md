@@ -6,10 +6,10 @@ Issues and specs for this repo live as markdown files in `.scratch/`.
 
 ## Conventions
 
-- One feature per directory: `.scratch/<feature-slug>/`
-- The spec is `.scratch/<feature-slug>/spec.md`
-- Implementation issues are one file per ticket at `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01`, never a single combined tickets file
-- Bug reports are one file per bug at `.scratch/bugs/<NN>-<slug>.md`, numbered from `01`. `<NN>` is the bug report's issue number: `/diagnose <NN>` takes it, and so does the `fix/<NN>-<slug>` branch that fixes it
+- One feature per directory: `.scratch/<NN>-<feature-slug>/`, numbered from `01`. `<NN>` is the spec's issue number: `/implement <NN>` takes it, and so does the branch that delivers the spec
+- The spec is `.scratch/<NN>-<feature-slug>/spec.md`
+- Implementation issues are one file per ticket at `issues/<NN>-<slug>.md` inside the feature's directory, numbered from `01` within that feature, never a single combined tickets file. That `<NN>` is the ticket's issue number
+- Bug reports are one file per bug at `.scratch/bugs/<NN>-<slug>.md`, numbered from `01` in their own sequence, apart from the features'. `<NN>` is the bug report's issue number: `/diagnose <NN>` takes it, and so does the `fix/<NN>-<slug>` branch that fixes it
 - State is recorded as a bold status line near the top of each issue file, holding one label string from `docs/agents/labels.md`, such as `**Status:** needs-planning`, or `closed`. One status line holds one state
 - A bug report has no type label here, so it carries a `**Type:** bug` line directly above its status line. It keeps that line when `/diagnose` rewrites it as a fix spec, whose status is `ready-for-implementation`. A **fix spec** is a spec labelled Bug, or marked `**Type:** bug` on a local tracker, whose body opens with an effort line and has `## Root cause` and `## Regression test`. A ticket whose parent is a fix spec counts as one, and takes those sections from its parent
 - Where a GitHub issue would carry `needs-info` beside `needs-planning`, the status line holds `needs-info` alone. A rerun of `/diagnose` sets it back to `needs-planning`
@@ -20,7 +20,7 @@ Issues and specs for this repo live as markdown files in `.scratch/`.
 
 ## When a skill says "publish to the issue tracker"
 
-Create a new file under `.scratch/<feature-slug>/` (creating the directory if needed). A bug report goes under `.scratch/bugs/` instead, with the next free number.
+Create a new file under `.scratch/<NN>-<feature-slug>/` (creating the directory if needed). A new feature's directory takes the next free number among the feature directories. A bug report goes under `.scratch/bugs/` instead, with the next free number.
 
 ## When a skill says "fetch the relevant ticket"
 

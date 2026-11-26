@@ -45,7 +45,7 @@ Summarise what's there and what's missing, including anything you found untracke
 
 Then ask only what exploration couldn't settle. Lead with the recommended answer so the user can accept it in a word, and skip any question exploration already answered.
 
-**A. Issue tracker.** Where issues live for this repo; `/to-spec`, `/to-tickets`, `/implement`, `/code-review`, `/report-bug` and `/diagnose` all read and write there. If a remote points at GitHub, propose GitHub and move on. Otherwise offer **local markdown** (files under `.scratch/<feature>/`, good for a solo repo with no remote), or ask the user to describe another tracker in a paragraph, which you'll record as prose.
+**A. Issue tracker.** Where issues live for this repo; `/to-spec`, `/to-tickets`, `/implement`, `/code-review`, `/report-bug` and `/diagnose` all read and write there. If a remote points at GitHub, propose GitHub and move on. Otherwise offer **local markdown** (files under `.scratch/`, good for a solo repo with no remote), or ask the user to describe another tracker in a paragraph, which you'll record as prose.
 
 A GitHub tracker needs a reachable repo: if the user picks it and no remote points there, get the URL from them and wire it up (`git init`, `git remote add origin <url>`) first. Done when `gh repo view` prints the project from inside this directory.
 
