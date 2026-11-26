@@ -16,6 +16,7 @@ Issues and specs for this repo live as markdown files in `.scratch/`.
 - Comments and conversation history append to the bottom of the file under a `## Comments` heading
 - **Close**: append the explanation under `## Comments`, then set `**Status:** closed`. An issue at `**Status:** wontfix` is closed too
 - **Search issues**: search the files under `.scratch/` for each phrase, such as a symptom and an error text, and read every matching file. Its status line tells an open issue from a closed one
+- **Commit**: files under `.scratch/` are committed. A tracker edit goes in its own commit on the branch the session is working on. A session on the default branch leaves a tracker-only edit uncommitted in the working tree and says so in its closing message, because the pre-push hook rejects pushing the default branch
 
 ## When a skill says "publish to the issue tracker"
 
