@@ -63,13 +63,17 @@ Issue both sub-agent calls together, in the foreground, and aggregate the report
 
 - The full diff command and commit list.
 - The list of standards-source files you found in step 3, **plus the smell baseline from step 3** pasted in full (the sub-agent has no other access to it).
-- The brief: "Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, but baseline smells are always judgement calls, and a documented repo standard overrides the baseline. Skip anything tooling enforces. Under 400 words."
+- The brief: "Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, but baseline smells are always judgement calls, and a documented repo standard overrides the baseline. Skip anything tooling enforces. List separately, under "Older than the diff", any defect you notice that the diff did not introduce, with its evidence, as the `report-bug` skill describes for a sub-agent. Under 400 words."
 
 **Spec sub-agent prompt** should include:
 
 - The diff command and commit list.
 - The path or fetched contents of the spec.
-- The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Under 400 words."
+- The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. List separately, under "Older than the diff", any defect you notice that the diff did not introduce, with its evidence, as the `report-bug` skill describes for a sub-agent. Under 400 words."
+
+A **fix spec** is a spec labelled Bug, or marked `**Type:** bug` on a local tracker, whose body opens with an effort line and has `## Root cause` and `## Regression test`. A ticket whose parent is a fix spec counts as one, and takes those sections from its parent.
+
+When the spec is a fix spec, the Spec sub-agent also gets the PR number when a PR exists, and the implementers' reports when your caller passed them. Add to its brief: "(d) the fix against the fix spec: the change sits at the code `## Root cause` names and in the places `## Fix` lists, and a change at the symptom instead is a finding; the regression test `## Regression test` describes is in the diff, at that seam, asserting on the symptom `## Problem` describes; and its failing output from before the fix is in the PR body's `## Evidence` or in an implementer's report. A missing regression test or missing failing output is a finding. When the fix spec records that no test can fail on the bug, look for the original reproduction's failing output instead."
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
 
@@ -81,6 +85,8 @@ Present the two reports under `## Standards` and `## Spec` headings, verbatim or
 
 End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes: that's the reranking the separation exists to prevent.
 
+After the summary, list the defects either sub-agent found that are older than the diff under `## Older than the diff`. They are bug reports for `report-bug`, not review findings, and the fix-up after review leaves them alone. When another skill called this one, that skill's session files them at the end of its run. When the user ran this review directly, call the Skill tool with `report-bug` for them before you finish.
+
 ## Why two axes
 
 A change can pass one axis and fail the other:
@@ -89,3 +95,7 @@ A change can pass one axis and fail the other:
 - Code that does exactly what the issue asked but breaks the project's conventions → **Spec pass, Standards fail.**
 
 Reporting them separately stops one axis from masking the other.
+
+---
+
+Adapted from `code-review` in [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT. See [LICENSE](./LICENSE).

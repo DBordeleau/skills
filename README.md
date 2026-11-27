@@ -27,6 +27,32 @@ That runs [`setup-workflow`](skills/setup-workflow/SKILL.md), which asks at most
 
 **Day to day.** See [WORKFLOW.md](WORKFLOW.md).
 
+## The skills
+
+[WORKFLOW.md](WORKFLOW.md) shows how they connect. Each skill's `SKILL.md` says how it runs.
+
+Building a feature:
+
+- `plan-with-me` interviews you about a plan until nothing is assumed, then records the decisions as glossary terms and ADRs.
+- `to-spec` writes the conversation up as a spec on the issue tracker.
+- `to-tickets` breaks a spec into tickets, one vertical slice each.
+- `implement` builds one spec or one ticket through sub-agents.
+- `implement-spec` builds a spec's whole ticket graph across parallel sub-agents.
+- `code-review` reviews a diff against the repo's standards and against its spec.
+- `pr` writes the PR body.
+- `improve-codebase-architecture` finds refactors in an existing codebase and hands one to `plan-with-me`.
+
+Fixing a bug:
+
+- `report-bug` files a bug report on the issue tracker. You run it when you see a bug, and agents run it for a defect they find outside their task.
+- `diagnose` builds a reproduction, finds the root cause, and waits for you to confirm it. Then it fixes the bug or leaves a fix spec. It runs only when you invoke it.
+
+Setting up and writing:
+
+- `setup-workflow` writes a project's config and labels.
+- `tdd`, `domain-modeling`, `codebase-design` and `writing-for-agents` hold the reference the other skills consult.
+- `unslop` cuts AI tells from anything written for a person.
+
 ## Layout
 
 ```

@@ -13,7 +13,7 @@ The rule text is byte-identical to upstream, numbering gaps included, so the rul
 
 ## mattpocock/skills
 
-Most of this repo began as a subset of [mattpocock/skills](https://github.com/mattpocock/skills) by Matt Pocock, taken on 2026-11-25 and adapted. Thanks to him for the originals.
+Most of this repo began as a subset of [mattpocock/skills](https://github.com/mattpocock/skills) by Matt Pocock, taken on 2026-11-25 and adapted. Thanks to him for the originals. His repo is MIT licensed, Copyright (c) 2026 Matt Pocock, and each skill listed below keeps a copy of the license in its own `LICENSE` file.
 
 Carried over close to as written:
 
@@ -28,13 +28,16 @@ Rewritten or reframed:
 - `to-spec` now ends by recommending either tickets or implementing the spec as it stands.
 - `implement` now delegates the build to sub-agents instead of doing it in the orchestrating context.
 - `setup-workflow` is his `setup-matt-pocock-skills` with a changed label vocabulary and the unused tracker fragments dropped. It also writes a conventions doc and an environment doc, installs the branch-name hook, and commits its own output.
+- `diagnose` is his `diagnosing-bugs`, taken at commit [`6f7f783`](https://github.com/mattpocock/skills/tree/6f7f7831a625f040a8e06a0e7954826b87ce775a/skills/engineering/diagnosing-bugs). It is MIT licensed, Copyright (c) 2026 Matt Pocock, and the license is kept at [skills/diagnose/LICENSE](skills/diagnose/LICENSE). Four of his steps survive in `skills/diagnose/INVESTIGATE.md`: a reproduction before any theory, a minimised reproduction, ranked falsifiable hypotheses, and tagged debug logs. Three things changed. Sub-agents do the investigation, the issue tracker records the result, and the user confirms the root cause before anyone designs a fix. His fix phase became `## Fixing a bug` in `tdd`. The skill is user-only, because his fired on quick questions that wanted a direct answer.
 
 ## The pr skill
 
-`pr` comes from Matt's repo, which credits [show-me](https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md) by Dex Horthy at Humanlayer. See [skills/pr/CREDITS.md](skills/pr/CREDITS.md).
+`pr` comes from Matt's repo, which credits [show-me](https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md) by Dex Horthy at Humanlayer. See [skills/pr/CREDITS.md](skills/pr/CREDITS.md). Both upstreams are MIT licensed, Copyright (c) 2026 Matt Pocock and Copyright (c) 2026 HumanLayer, and [skills/pr/LICENSE](skills/pr/LICENSE) keeps both texts.
 
-Its Summary section is replaced. Upstream offers a menu of structural views, and in practice the one that got picked was a diff sketch of the file tree, which describes the edit rather than the gain and goes stale on the next commit. The section now asks for one sentence and one visual that carries the benefit: a before and after table, a Mermaid flowchart or state diagram, or a numbers table. Structural views are still allowed, below the Summary, under their own heading. The Evidence and Merge Danger sections are unchanged.
+Its Summary section is replaced. Upstream offers a menu of structural views, and in practice the one that got picked was a diff sketch of the file tree, which describes the edit rather than the gain and goes stale on the next commit. The section now asks for one sentence and one visual that carries the benefit: a before and after table, a Mermaid flowchart or state diagram, or a numbers table. Structural views are still allowed, below the Summary, under their own heading. The Evidence section now asks for the real output of the test run, with pseudocode only to show what the test does, and adds a line for a bug fix. The Merge Danger section is unchanged.
 
 ## Everything else
 
 The smell baseline in `code-review` condenses the code smells from chapter 3 of Martin Fowler's _Refactoring_.
+
+`report-bug` and `diagnose` take ideas, not text, from other workflows. Claude Code's issue automation gave the duplicate rules. The bug report templates of BMAD and Mozilla gave the rule that a bug report proposes no fix. compound-engineering's debug skill gave the definition of a reproduction and the gate before a root cause reaches the user.

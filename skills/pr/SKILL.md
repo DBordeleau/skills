@@ -44,6 +44,8 @@ Skip all preambles and keep prose brief. Use the user's domain language from `GL
 
 One sentence, then one visual. The sentence says what a person can now do that they could not before, or what now holds that did not. The visual shows the same thing at a glance.
 
+For a bug fix, the sentence also states the root cause, from the fix spec's `## Root cause`. After the sentence and the visual, one line says the PR closes the fix spec's issue.
+
 The visual carries the benefit of the change, not its shape. A reviewer reads the diff for the shape. So do not open with a file tree, a diff sketch or a call stack. They describe the edit rather than the gain, they go stale on the next commit, and they push the point below the fold.
 
 Pick one visual, by what kind of change this is.
@@ -115,10 +117,16 @@ Concrete evidence that the change works. Show a before and after.
 
 Screenshots are S-tier - when the environment is set up for it and the change is visual.
 
-Execution-based evidence is A-tier. Test results, console output. Show the exact test that now fails and passes, using pseudocode.
+Execution-based evidence is A-tier. Test results, console output. Paste the real output of the run where the test fails before the change and the run where it passes after. Use pseudocode only to show what the test does, beside that output and never in its place.
+
+For a bug fix, the output is what `## Fixing a bug` in `tdd` has the implementer keep. Copy it from the implementer's report.
 
 ### Merge Danger
 
 Describe whether it's a one-way or two-way door. You can walk back through two-way doors, but not one-way doors. A PR that is cheap to roll back is lower risk. Changes that involve destructive actions or hard-to-reverse decisions are one-way doors.
 
 The blast radius is the potential impact or scope of the changes introduced by this PR. Consider all possibilities. Examples are layout shift, breakages for consumers, mobile responsiveness, etc.
+
+---
+
+Adapted from [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT, and from [`show-me`](https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md) in humanlayer/skills, by Dex Horthy at HumanLayer, MIT. See [LICENSE](./LICENSE) and [CREDITS.md](./CREDITS.md).

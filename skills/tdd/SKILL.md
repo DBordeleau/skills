@@ -5,7 +5,7 @@ description: Test-driven development. Use when the user wants to build features 
 
 # Test-Driven Development
 
-TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, and the rules of the loop. Every section applies on every cycle: consult them before and during the loop, not after.
+TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, the rules of the loop, and the rules for fixing a bug. Every section but `## Fixing a bug` applies on every cycle, and that one applies on every cycle of a bug fix: consult them before and during the loop, not after.
 
 When exploring the codebase, read `GLOSSARY.md` (if it exists) so test names and interface vocabulary match the project's domain language, and respect ADRs in the area you're touching.
 
@@ -36,3 +36,18 @@ When the shape of that interface is itself in question (how deep the module is, 
 - **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
 - **One slice at a time.** One seam, one test, one minimal implementation per cycle.
 - **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.
+
+## Fixing a bug
+
+These rules hold for every bug fix, on top of the loop above. The sections they name are the fix spec's. Without a fix spec, use the bug report and the root cause you were given.
+
+- **The fix spec settles the seam.** `## Regression test` names it, and the user confirmed it when they confirmed the root cause. Write the test there without asking again.
+- **Red on the original symptom, before the fix.** Build the regression test from the reproduction and run it before you change the code. It must fail on the symptom `## Problem` describes, with the same error text or the same wrong value, and not on some other failure nearby. Keep its failing output as it printed: that output is the proof the test can catch the bug. It goes in your report, and from there into the PR body's `## Evidence`. A regression test that passes before the fix cannot catch the bug, and it is evidence against the root cause: stop and report it.
+- **The smallest change at the root cause.** Change the code `## Root cause` names, in the places `## Fix` lists. A change at the symptom leaves the root cause to fail somewhere else, and anything beyond the fix belongs in another diff.
+- **Green, then the original reproduction.** Run the regression test, see it pass, and keep that output too. Then rerun the original, unminimised reproduction from `## Problem` and see it pass, since a new test passing does not show the symptom is gone. Then run the full suite.
+- **Three failed attempts stop the work.** An attempt fails when the regression test or the original reproduction is still red after it. Revert each failed attempt before the next, so every attempt starts from the same code. After the third, stop, and report what each attempt changed and the output it left. The root cause is probably wrong, and the session that dispatched you decides what happens next.
+- **When no test can fail on the bug,** the fix spec says why and that the user approved it. The original reproduction is then the proof: keep its failing output from before the fix and its passing output from after.
+
+---
+
+Adapted from `tdd` in [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT. See [LICENSE](./LICENSE).

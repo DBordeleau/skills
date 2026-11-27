@@ -9,7 +9,15 @@ idea ──▶ /plan-with-me ──▶ /to-spec ──┬──▶ /implement �
                              advises)  └──▶ /to-tickets ──▶ /implement-spec
                                             (vertical slices,     (task graph, fanned
                                              blocking edges)       across sub-agents)
+
+bug ──▶ report-bug ──▶ /diagnose ──────────┬──▶ fix now ───────────▶ code-review ──▶ pr ──▶ merge
+        (bug report    (reproduction,      │    (fix spec, then one
+         on tracker)    root cause, two    │     implementer)
+                        gates)             └──▶ spec and stop ──▶ /implement or /to-tickets
+                                                (fix spec on tracker)
 ```
+
+The upper diagram is the feature path and the lower one is the bug path. They meet at `code-review`.
 
 ## The steps
 
@@ -29,6 +37,25 @@ idea ──▶ /plan-with-me ──▶ /to-spec ──┬──▶ /implement �
 
 **`pr`** writes the PR body: a summary of what the change makes possible, before and after evidence, and a note on whether the merge is a one-way or two-way door.
 
+## The bug path
+
+**`report-bug`** files a bug report, which describes a defect as someone observed it, before anyone has investigated it. It proposes no fix. Run `/report-bug` when you see a bug. Agents use it too, for a defect they find outside their task. A sub-agent puts the defect in its report, and the session you are talking to files every bug report once, at the end of its run. Each bug report says whether it has a reproduction, and the session lists what it filed in its closing message and in the PR body.
+
+**`/diagnose`** takes one bug report to a root cause you have confirmed. It runs only when you invoke it. An investigator sub-agent works in a throwaway worktree and builds a reproduction before it forms any theory. The run stops at two gates and waits for your answer at each:
+
+1. A root cause reaches you only with a reproduction beside it. With no reproduction, the run takes the cannot-reproduce exit.
+2. `/diagnose` designs no fix until you confirm the root cause, choose which other places with the same mistake are in scope, and confirm where the regression test sits.
+
+Then you pick one exit:
+
+- **Fix now**, the default when the fix is one slice with no open design decision. `/diagnose` rewrites the bug report as a fix spec, builds the fix in one implementer sub-agent by the `## Fixing a bug` rules in `tdd`, then calls `code-review` and `pr`.
+- **Spec and stop**, when the fix needs a design decision, needs splitting into tickets, or should wait. `/diagnose` leaves a fix spec on the tracker, ready to implement. Run `/implement` on it in a fresh session, or `/to-tickets` when it needs splitting.
+- **Won't fix**, for behaviour that is intended or not worth fixing. The issue closes with the reason.
+- **Not a bug**, for a missing feature or a design change. The issue loses its bug label and goes to `/plan-with-me`.
+- **Cannot reproduce**, when the investigator found no reproduction. The issue gets a comment saying what is missing and is marked as needing info. Answer on the issue and rerun `/diagnose`.
+
+A fix spec states the root cause, the fix and the regression test. `/implement` builds it on a `fix` branch at the seam the fix spec names, without asking about the seam again. When the regression test passes before the fix, or three attempts fail, the root cause is probably wrong. `/implement` then sends the issue back to `/diagnose` with the evidence. `code-review` checks a bug fix against its fix spec, including that the regression test exists and was seen to fail, and `pr` puts the test's real failing and passing output in the PR body.
+
 ## Starting from the codebase
 
 **`/improve-codebase-architecture`** scans a repo for deepening opportunities, the refactors that turn a shallow module into a deep one, and writes them up as an HTML report you can read. Pick a candidate and it runs the `/plan-with-me` interview over that one, which puts you back on the loop above at `/to-spec`. Use it when you want the next piece of work to come out of the code rather than out of an idea.
@@ -38,7 +65,7 @@ idea ──▶ /plan-with-me ──▶ /to-spec ──┬──▶ /implement �
 Other skills consult these. You do not run them as sessions.
 
 - **`unslop`** cuts AI tells from anything written for a human. Every skill that publishes prose invokes it, and so does any agent about to send a message. See [policy/global.md](policy/global.md).
-- **`tdd`** covers what a good test is, where seams go, the anti-patterns, and the rules of the loop from failing test to passing code.
+- **`tdd`** covers what a good test is, where seams go, the anti-patterns, and the rules of the loop from failing test to passing code. Its `## Fixing a bug` section adds the rules for a bug fix.
 - **`domain-modeling`** builds and sharpens the glossary and the ADRs. `/plan-with-me` reaches it.
 - **`codebase-design`** holds the shared vocabulary for module depth, interfaces, seams and leverage.
 - **`writing-for-agents`** covers how to write a skill, an `AGENTS.md`, or a `CLAUDE.md`. Read it before changing anything in this repo.

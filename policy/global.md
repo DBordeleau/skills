@@ -33,6 +33,10 @@ Commit subjects are **not** Conventional Commits: the conventional prefix lives 
 
 Never commit or push unless the user asked. If you're on the default branch, branch first.
 
+## File the bugs you find outside your task
+
+A defect that existed before your task and sits outside it goes to the `report-bug` skill, and your diff stays on your task. A sub-agent puts the defect and its evidence in its report, and the session the user is talking to files it.
+
 ## Delegate the expensive work
 
 Your context is re-sent on every turn, so the cost of a session is roughly its turns times its context size. Both get away from you the same way: by doing the work in the orchestrating window.
@@ -44,9 +48,9 @@ Your context is re-sent on every turn, so the cost of a session is roughly its t
 
 ## Effort levels
 
-Tickets carry `Effort: medium` or `Effort: high` (the rule is in each repo's `docs/agents/conventions.md`). Map that to how much reasoning the sub-agent doing it gets.
+Tickets and fix specs carry `Effort: medium` or `Effort: high` (the rule is in each repo's `docs/agents/conventions.md`). Map that to how much reasoning the sub-agent doing it gets.
 
-In Claude Code, that means the sub-agent type: `implementer-high` for a ticket marked `Effort: high` and for the fix-up after `code-review`; `implementer-medium` for `Effort: medium`, for a ticket with no effort line, and for merger sub-agents. This repo does not ship those two types. They are defined per machine in `~/.claude/agents/`, so on a machine without them, use the general-purpose sub-agent with its effort set to match. In other tools, map it to that tool's reasoning-effort setting.
+In Claude Code, that means the sub-agent type: `implementer-high` for work marked `Effort: high` and for the fix-up after `code-review`; `implementer-medium` for `Effort: medium`, for work with no effort line, and for merger sub-agents. This repo does not ship those two types. They are defined per machine in `~/.claude/agents/`, so on a machine without them, use the general-purpose sub-agent with its effort set to match. In other tools, map it to that tool's reasoning-effort setting.
 
 ## Clean up after yourself
 

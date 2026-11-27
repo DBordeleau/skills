@@ -68,3 +68,7 @@ Once the user picks a candidate, call the Skill tool with "plan-with-me" and run
 - **The user rejected the candidate with a load-bearing reason.** Offer an ADR, framed as: _"Want me to record this as an ADR so future architecture reviews don't re-suggest it?"_ Only offer when the reason would actually be needed by a future explorer to avoid re-suggesting the same thing; skip ephemeral reasons ("not worth it right now") and self-evident ones.
 
 To explore alternative interfaces for the deepened module during the interview, call the Skill tool with "codebase-design" and use its design-it-twice parallel sub-agent pattern.
+
+---
+
+Adapted from `improve-codebase-architecture` in [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT. See [LICENSE](./LICENSE).

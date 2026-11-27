@@ -45,7 +45,7 @@ Summarise what's there and what's missing, including anything you found untracke
 
 Then ask only what exploration couldn't settle. Lead with the recommended answer so the user can accept it in a word, and skip any question exploration already answered.
 
-**A. Issue tracker.** Where issues live for this repo; `/to-spec`, `/to-tickets`, `/implement` and `/code-review` all read and write there. If a remote points at GitHub, propose GitHub and move on. Otherwise offer **local markdown** (files under `.scratch/<feature>/`, good for a solo repo with no remote), or ask the user to describe another tracker in a paragraph, which you'll record as prose.
+**A. Issue tracker.** Where issues live for this repo; `/to-spec`, `/to-tickets`, `/implement`, `/code-review`, `/report-bug` and `/diagnose` all read and write there. If a remote points at GitHub, propose GitHub and move on. Otherwise offer **local markdown** (files under `.scratch/`, good for a solo repo with no remote), or ask the user to describe another tracker in a paragraph, which you'll record as prose.
 
 A GitHub tracker needs a reachable repo: if the user picks it and no remote points there, get the URL from them and wire it up (`git init`, `git remote add origin <url>`) first. Done when `gh repo view` prints the project from inside this directory.
 
@@ -90,7 +90,7 @@ For another tracker, write `docs/agents/issue-tracker.md` from scratch from the 
 
 Each fragment opens with a provenance comment holding the literal `COMMIT`. Replace it with this skills repo's current short commit (`git -C <skills clone> rev-parse --short HEAD`). That line is what makes a later update able to merge instead of overwrite, so a file written without it can only be updated by hand. A file you wrote from scratch gets no provenance line, because there is no upstream to merge from; say so in your report.
 
-**Create the labels** the tracker is missing (`gh label create "<name>" --description "…" --color <hex>`), keeping any issue-type labels the repo already uses.
+**Create the labels** in the table that the tracker is missing, `bug` included (`gh label create "<name>" --description "…" --color <hex>`, with the table's meaning as the description). Keep any other issue-type labels the repo already uses. A local tracker has no labels, so skip this step there.
 
 Before creating one, check whether a label already fills that role under a different name, and count the issues holding it (`gh issue list --state all --limit 200 --json labels`). Rename those instead of creating a duplicate, as [fragments/labels.md](./fragments/labels.md) says, and report the count you moved. A repo that has been through the older `setup-matt-pocock-skills` will have `needs-triage` for what this vocabulary calls `needs-planning`, and may have `ready-for-agent` for `ready-for-implementation`.
 
@@ -137,4 +137,8 @@ Then report, per file: unchanged, merged cleanly, or merged with conflicts you r
 
 Re-run the label and hook steps too, since both are idempotent: a renamed label role or a changed hook will not have reached the repo either. Ask before renaming a label a second time.
 
-Finish by naming the daily loop the repo is now set up for: `/plan-with-me` → `/to-spec` → `/to-tickets` if advised → `/implement` or `/implement-spec` → `code-review` → `pr`. Mention that `docs/agents/*.md` can be edited directly later, and that re-running this skill brings in later fragment changes without losing those edits.
+Finish by naming the daily loop the repo is now set up for, as `WORKFLOW.md` in the skills repo draws it. The feature path is `/plan-with-me` → `/to-spec` → `/to-tickets` if advised → `/implement` or `/implement-spec` → `code-review` → `pr`. The bug path is `report-bug` → `/diagnose`, which stops twice for the user and then either fixes the bug now through `code-review` and `pr`, or leaves a fix spec for `/implement` or `/to-tickets`. Mention that `docs/agents/*.md` can be edited directly later, and that re-running this skill brings in later fragment changes without losing those edits.
+
+---
+
+Adapted from `setup-matt-pocock-skills` in [mattpocock/skills](https://github.com/mattpocock/skills), by Matt Pocock, MIT. See [LICENSE](./LICENSE).

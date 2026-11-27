@@ -1,0 +1,5 @@
+interface:
+  display_name: "Diagnose"
+  short_description: "Reproduce a bug and confirm its root cause"
+policy:
+  allow_implicit_invocation: false
