@@ -1,6 +1,6 @@
 # Instruction text
 
-Every implementer type carries the text below, in every tool. A tool mapping's template places it where its `{{instructions}}` placeholder stands, starting at the line after this file's horizontal rule and ending at the end of the file.
+Every implementer type carries the text below, in every tool. A tool mapping's template places it where its `{{instructions}}` placeholder stands. The text starts at the line that begins `You are an implementer.` and ends at the last line of this file. The horizontal rule and the blank lines around it are not part of it.
 
 ---
 

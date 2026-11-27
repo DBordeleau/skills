@@ -17,7 +17,7 @@ I recommend you go through the repo and tailor it to meet your needs and prefere
 
 > Set up my workflow from this repo.
 
-It reads [AGENTS.md](AGENTS.md) and does the rest. It links the skills into the tools it finds, installs the shared policy, backs up whatever was already there, and reports what it did. It works in Claude Code, the ChatGPT app, Pi, or anything else that can read files and run `git`.
+It reads [AGENTS.md](AGENTS.md) and does the rest. It links the skills into the tools it finds, installs the shared policy, backs up whatever was already there, and reports what it did. It also writes each tool's implementer types from [implementers/](implementers/), so implementers run on the model and reasoning level set there. It works in Claude Code, the ChatGPT app, Pi, or anything else that can read files and run `git`.
 
 **In a project.** From inside that repo, tell an agent:
 
@@ -59,6 +59,7 @@ Setting up and writing:
 AGENTS.md            what an agent pointed at this repo should do
 WORKFLOW.md          the loop these skills form
 policy/global.md     machine-level rules: attribution, writing, branches, delegation, effort
+implementers/        implementer settings, instruction text, and one tool mapping per tool
 skills/<name>/
   SKILL.md           the skill itself
   agents/openai.yaml adapter for tools that want one
