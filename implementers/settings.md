@@ -10,6 +10,8 @@ One row per tool and effort level. A cell holds the value in the spelling that t
 | --- | --- | --- | --- |
 | Claude Code | medium | opus | medium |
 | Claude Code | high | opus | high |
+| Codex | medium | gpt-6.1-sol | medium |
+| Codex | high | gpt-6.1-sol | high |
 
 ## Machine settings
 
