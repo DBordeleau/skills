@@ -37,7 +37,9 @@ git push --dry-run origin HEAD:refs/heads/bad-name        # rejected
 git push --dry-run origin HEAD:refs/heads/fix/1-some-name # passes
 ```
 
-After a change to `implementers/`, run the dispatch check in the tool mapping of each tool the change reaches. Each tool mapping in `implementers/` holds its own, and a change to `settings.md` or `instructions.md` reaches every tool with rows in the implementer settings.
+After a change to `implementers/`, run the dispatch check in the tool mapping of each tool the change reaches. Each tool mapping in `implementers/` holds its own, and a change to `settings.md` or `instructions.md` reaches every tool with rows in the implementer settings. Run a tool mapping's dispatch check before changing its status, too.
+
+Each step of a dispatch check names what to observe. A step whose observation differs is a failure. Correct the template or the facts in that tool mapping, then run the check again from step 1.
 
 ## Hooks
 
