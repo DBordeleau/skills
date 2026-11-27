@@ -37,6 +37,8 @@ git push --dry-run origin HEAD:refs/heads/bad-name        # rejected
 git push --dry-run origin HEAD:refs/heads/fix/1-some-name # passes
 ```
 
+After a change to `implementers/`, run the dispatch check in the tool mapping of each tool the change reaches. Each tool mapping in `implementers/` holds its own, and a change to `settings.md` or `instructions.md` reaches every tool with rows in the implementer settings.
+
 ## Hooks
 
 `.githooks/pre-push` runs `skills/setup-workflow/hooks/pre-push`, the same hook `/setup-workflow` copies into other repos. Edit that one; the wrapper holds no logic.

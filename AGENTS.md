@@ -2,7 +2,7 @@
 
 This repo holds one person's engineering workflow: a set of skills, the policy they share, and the per-repo config that wires them into a project. It is the single source of truth for that workflow. If you are an agent reading this, you have been pointed here to do one of three jobs. Find yours below and follow it.
 
-Everything here is plain markdown and plain `git`. There is no CLI to install, no package to build, and nothing that assumes a particular model or tool.
+Everything here is plain markdown and plain `git`. There is no CLI to install, no package to build, and nothing outside [implementers/](implementers/) assumes a particular model or tool. That directory names the model and reasoning level each tool's implementers run on.
 
 - **Job 1 — set this workflow up on a machine.** The user said something like "set up my workflow from this repo".
 - **Job 2 — set this workflow up in a project.** The user said something like "set this repo up for my workflow". Run the `setup-workflow` skill; if skills aren't available in your tool, read [skills/setup-workflow/SKILL.md](skills/setup-workflow/SKILL.md) and follow it yourself.
@@ -69,11 +69,17 @@ If linking is genuinely impossible on this machine, copy instead — but then sa
 - Add a line under the heading saying where the block came from and that it is edited in the skills repo, not in place. Name the repo and the commit, never this machine's clone path: `Installed from DBordeleau/skills@<short sha> (policy/global.md). Edit it there, not here.` The path differs on every machine, and the commit is what tells a later reader whether the block is stale.
 - Don't delete the user's own notes around it, even where the block now covers the same ground. Their rules are live until `/setup-workflow` has run in each repo and written `docs/agents/*.md`. Say which of their sections the block duplicates, and leave removing them to them.
 
-**6. Verify, and report in four lines.** Every skill in `skills/` resolves through its link at each tool path; the superseded skills from step 3 are gone; the policy block appears exactly once per file; and the backup from step 3 is where you said it is. List the installed skill names so the user can see what they have.
+**6. Generate the implementer types.** They are the one thing Job 1 copies rather than links, because each tool takes them in its own file format. The source is in [implementers/](implementers/): the implementer settings in `settings.md`, the instruction text in `instructions.md`, and one tool mapping per tool in each other file. The machine settings at `~/.agents/implementers.md` are optional. Read them if they exist, and leave them unchanged. For each tool mapping:
+
+1. Skip the tool if the directory its tool mapping gives under "Installed when" is absent, or if its status is `unverified`. Note which reason applies.
+2. Resolve one row per effort level, `medium` and `high`. Take the default row from `settings.md`, unless the machine settings have a row with the same tool and effort level. That row replaces the default whole.
+3. Fill the tool mapping's template once per effort level, with the placeholder values its table gives, and write each result whole to the directory it names. A file already there is replaced, hand edits and all.
+
+**7. Verify, and report in five lines.** Every skill in `skills/` resolves through its link at each tool path; the superseded skills from step 3 are gone; the policy block appears exactly once per file; the backup from step 3 is where you said it is; and each tool from step 6 either got both implementer types or is named as skipped with its reason. List the installed skill names so the user can see what they have.
 
 ## Updating an installation
 
-What a change here costs depends on which part changed. Three of the four are cheap; the last one is the only one that needs judgement.
+What a change here costs depends on which part changed. Four of the five are cheap; the last one is the only one that needs judgement.
 
 ### On a machine
 
@@ -84,8 +90,9 @@ Start with `git pull` in the clone. Then:
 | A skill's `SKILL.md` or its reference files | Nothing. The links mean every tool reads the new text at once. |
 | A skill added or removed | Re-run step 4. `git pull` creates no link, and a deleted skill leaves a dangling one that still shows in the skill list. |
 | `policy/global.md` | Re-run step 5. The block is a copy, not a link, because those files hold the user's own notes too. |
+| Anything in `implementers/`, or the machine settings at `~/.agents/implementers.md` | Re-run step 6. The implementer types are copies written from both. |
 
-A running session loaded its skills when it started, so it keeps the old text until it restarts. Say so rather than letting the user wonder why an edit had no effect.
+A running session loaded its skills and its implementer types when it started, so it keeps the old ones until it restarts. Say so rather than letting the user wonder why an edit had no effect.
 
 To find whether a machine's policy block is stale, compare the commit in its `Installed from` line against `git -C <clone> rev-parse --short HEAD`.
 
