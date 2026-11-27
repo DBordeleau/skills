@@ -1,6 +1,6 @@
 # Tool mapping: Claude Code
 
-**Status**: `unverified`. It becomes `verified` once the dispatch check below passes on a real run, with the date and the Claude Code version written beside it.
+**Status**: `verified` on 2026-11-27 with Claude Code 2.1.332. The dispatch check below passed on a real run at both effort levels. That run was headless, so it read each sub-agent's model and reasoning level from the sub-agent's record under `~/.claude/projects/` and not from `/tasks`.
 
 **Installed when** `~/.claude/` exists.
 
