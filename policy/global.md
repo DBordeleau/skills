@@ -48,9 +48,14 @@ Your context is re-sent on every turn, so the cost of a session is roughly its t
 
 ## Effort levels
 
-Tickets and fix specs carry `Effort: medium` or `Effort: high` (the rule is in each repo's `docs/agents/conventions.md`). Map that to how much reasoning the sub-agent doing it gets.
+Tickets and fix specs open with an effort level, `Effort: medium` or `Effort: high`. Each repo's `docs/agents/conventions.md` says how to choose one. The effort level picks the implementer type that does the work:
 
-In Claude Code, that means the sub-agent type: `implementer-high` for work marked `Effort: high` and for the fix-up after `code-review`; `implementer-medium` for `Effort: medium`, for work with no effort line, and for merger sub-agents. This repo does not ship those two types. They are defined per machine in `~/.claude/agents/`, so on a machine without them, use the general-purpose sub-agent with its effort set to match. In other tools, map it to that tool's reasoning-effort setting.
+- `implementer-high` for work at `high` and for the fix-up after `code-review`.
+- `implementer-medium` for work at `medium`, for work with no effort line, and for merger sub-agents.
+
+Dispatch the implementer type by name and pass no model or reasoning level on the call. The implementer type's own file sets both, and a value on the call would replace it without anyone seeing.
+
+If the tool has no implementer type, or can't honour the model or reasoning level one sets, say so once in the session. Then run implementers on the session's model.
 
 ## Clean up after yourself
 
