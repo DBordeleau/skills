@@ -62,7 +62,7 @@ Call the Skill tool with `unslop` first, and apply its rules to every ticket tit
 
 Publish the approved tickets. **How** depends on the tracker `/setup-workflow` configured; the tickets are the same either way, only the shape of the blocking edges changes:
 
-- **Local files** → write one file per ticket at `issues/<NN>-<slug>.md` in the feature's `.scratch/<NN>-<feature-slug>/` directory, numbered from `01` in dependency order (blockers first). Each file's "Blocked by" lists the numbers/titles it depends on. Use the per-ticket file template below: one ticket per file, never a single combined file.
+- **Local files** → write one file per ticket at `issues/<NN>-<slug>.md` in the feature's `.scratch/<NN>-<feature-slug>/` directory, or for a fix spec in the `.scratch/bugs/<NN>-<slug>/` directory beside it, numbered from `01` in dependency order (blockers first). Each file's "Blocked by" lists the numbers/titles it depends on. Use the per-ticket file template below: one ticket per file, never a single combined file.
 - **A real issue tracker (GitHub, Linear, …)** → publish one issue per ticket in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the platform's native blocking relationship where it has one; otherwise set each ticket's "Blocked by" to the blocking issues. If the source was an existing issue, make each ticket its sub-issue (tracker doc's operation). Label each one a ticket that is ready to implement (`docs/agents/labels.md` gives the strings) unless instructed otherwise; the tickets are agent-grabbable by construction.
 
 Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom.
