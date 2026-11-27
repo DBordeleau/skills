@@ -82,7 +82,7 @@ The skills, `AGENTS.md` and `policy/global.md` are written for agents. Before yo
 - **`policy/global.md`.** Re-copy the block on each machine. It is a copy rather than a link, because the files it goes into hold your own notes too.
 - **A fragment under `skills/setup-workflow/fragments/`.** Re-run `/setup-workflow` in **each repo you work in**. A repo's `docs/agents/*.md` are copies, committed so that a clone has them without this repo, so a fragment change here reaches no repo on its own. The re-run merges only what changed upstream and keeps the parts filled in for that repo, such as its real check commands.
 
-Rather than working out which case applies, tell an agent in the clone: "update my workflow from this repo". It reads [AGENTS.md](AGENTS.md#updating-an-installation), which holds all four cases, and takes the extra step only when there is one.
+Rather than working out which case applies, tell an agent in the clone: "update my workflow from this repo". It reads [AGENTS.md](AGENTS.md#updating-an-installation), which holds every case, and takes the extra step only when there is one.
 
 A running session loaded its skills when it started, so restart it before wondering why an edit had no effect.
 
