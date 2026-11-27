@@ -58,4 +58,4 @@ Every ticket body opens with `Effort: medium` or `Effort: high`, and each ticket
 
 A fix spec opens with the effort line too, and `/diagnose` sets it: `high` when no existing test covers the code the fix changes or the root cause crosses modules, `medium` otherwise.
 
-The effort sets how much reasoning a sub-agent gets. In Claude Code, map it to the sub-agent types the machine-level policy defines; in other tools, map it to that tool's reasoning-effort setting. Merger sub-agents and the fix-up after `code-review` follow the same mapping: mergers take the `medium` setting, the post-review fix-up takes `high`.
+The machine-level policy says which implementer type does the work at each effort level. Merger sub-agents and the fix-up after `code-review` follow the same rule. Mergers take effort level `medium`, and the post-review fix-up takes effort level `high`.

@@ -17,7 +17,7 @@ I recommend you go through the repo and tailor it to meet your needs and prefere
 
 > Set up my workflow from this repo.
 
-It reads [AGENTS.md](AGENTS.md) and does the rest. It links the skills into the tools it finds, installs the shared policy, backs up whatever was already there, and reports what it did. It works in Claude Code, the ChatGPT app, Pi, or anything else that can read files and run `git`.
+It reads [AGENTS.md](AGENTS.md) and does the rest. It links the skills into the tools it finds, installs the shared policy, backs up whatever was already there, and reports what it did. It also writes each tool's implementer types from [implementers/](implementers/), so implementers run on the model and reasoning level set there. It works in Claude Code, the ChatGPT app, Pi, or anything else that can read files and run `git`.
 
 **In a project.** From inside that repo, tell an agent:
 
@@ -59,6 +59,7 @@ Setting up and writing:
 AGENTS.md            what an agent pointed at this repo should do
 WORKFLOW.md          the loop these skills form
 policy/global.md     machine-level rules: attribution, writing, branches, delegation, effort
+implementers/        implementer settings, instruction text, and one tool mapping per tool
 skills/<name>/
   SKILL.md           the skill itself
   agents/openai.yaml adapter for tools that want one
@@ -75,13 +76,14 @@ The skills, `AGENTS.md` and `policy/global.md` are written for agents. Before yo
 
 ### Getting a change onto the other machines and repos
 
-`git pull` in the clone is the whole job when you edited a skill's own text, because an installed skill is a link back to this repo. Three kinds of change need one more step:
+`git pull` in the clone is the whole job when you edited a skill's own text, because an installed skill is a link back to this repo. These kinds of change need one more step:
 
 - **A skill added or removed.** Re-link on each machine. `git pull` creates no link, and a skill you delete leaves a dangling one that still shows in the skill list.
 - **`policy/global.md`.** Re-copy the block on each machine. It is a copy rather than a link, because the files it goes into hold your own notes too.
+- **Anything in `implementers/`, or the machine settings at `~/.agents/implementers.md`.** Generate the implementer types again on each machine. They are copies written from both, and a machine's settings reach only that machine.
 - **A fragment under `skills/setup-workflow/fragments/`.** Re-run `/setup-workflow` in **each repo you work in**. A repo's `docs/agents/*.md` are copies, committed so that a clone has them without this repo, so a fragment change here reaches no repo on its own. The re-run merges only what changed upstream and keeps the parts filled in for that repo, such as its real check commands.
 
-Rather than working out which case applies, tell an agent in the clone: "update my workflow from this repo". It reads [AGENTS.md](AGENTS.md#updating-an-installation), which holds all four cases, and takes the extra step only when there is one.
+Rather than working out which case applies, tell an agent in the clone: "update my workflow from this repo". It reads [AGENTS.md](AGENTS.md#updating-an-installation), which holds every case, and takes the extra step only when there is one.
 
 A running session loaded its skills when it started, so restart it before wondering why an edit had no effect.
 
