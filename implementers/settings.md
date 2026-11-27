@@ -4,7 +4,7 @@ The model and reasoning level each tool's implementer types run on. Job 1 step 6
 
 ## Defaults
 
-One row per tool and effort level. A cell holds the value in the spelling that tool accepts: an alias follows the newest model the tool knows, and a full model ID pins one version. A tool whose tool mapping is `unverified` has no rows.
+One row per tool and effort level. A cell holds the value in the spelling that tool accepts. An alias follows the newest model the tool knows, and a full model ID pins one version. A tool whose tool mapping is `unverified` has no rows.
 
 | Tool | Effort level | Model | Reasoning level |
 | --- | --- | --- | --- |
