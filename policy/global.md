@@ -53,7 +53,7 @@ Tickets and fix specs open with an effort level, `Effort: medium` or `Effort: hi
 - `implementer-high` for work at `high` and for the fix-up after `code-review`.
 - `implementer-medium` for work at `medium`, for work with no effort line, and for merger sub-agents.
 
-Dispatch the implementer type by name and pass no model or reasoning level on the call. The implementer type's own file sets both, and a value on the call would replace it without anyone seeing.
+Dispatch the implementer type by name and pass no model or reasoning level on the call. The implementer type's own file sets both from the implementer settings, so the call has nothing to add.
 
 If the tool has no implementer type, or can't honour the model or reasoning level one sets, say so once in the session. Then run implementers on the session's model.
 
