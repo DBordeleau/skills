@@ -1,6 +1,6 @@
 # When to Mock
 
-Mock at **system boundaries** only:
+Mock only at the seams where your code meets something outside your control:
 
 - External APIs (payment, email, etc.)
 - Databases (sometimes - prefer test DB)
@@ -15,7 +15,7 @@ Don't mock:
 
 ## Designing for Mockability
 
-At system boundaries, design interfaces that are easy to mock:
+At those seams, design interfaces that are easy to mock:
 
 **1. Use dependency injection**
 
