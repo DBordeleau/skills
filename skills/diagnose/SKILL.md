@@ -51,13 +51,13 @@ Dispatch one **investigator sub-agent** at `high` effort, as `docs/agents/conven
 - the chain from the root cause to the symptom, naming the files;
 - the hypotheses ruled out, each with the evidence against it, when any were formed;
 - other places with the same mistake;
-- where the regression test will sit, at the nearest seam where it fails on the bug, or why no test can fail on it.
+- where the regression test will go: the testing seam of the behaviour the bug broke, the existing tests it joins and their seam builder, with the reason for any seam exception, or why no test can fail on the bug.
 
 The findings say what is wrong and where. Ask the user to:
 
 1. confirm the root cause, or correct it;
 2. choose which of the other places are in scope;
-3. confirm the regression test's seam, or approve the exception when no test can fail on the bug.
+3. confirm the regression test's testing seam and any seam exception, or approve the exception when no test can fail on the bug.
 
 Done when the user has answered all three in their own message. Their seam answer is the seam confirmation that `tdd` asks for. When they take a place into scope that the confirmed seam cannot reach, propose a seam for that place and wait for their confirmation of it too. When they correct the root cause or add a fact, dispatch a fresh investigator with the evidence rule, their words and the notes path, and come back to this step with its findings. Each place left out of scope becomes its own bug report in step 6.
 
@@ -89,8 +89,8 @@ Both fix exits start here, so the issue shows the same trail whichever one ran. 
 1. Write the fix spec, as above, before any build starts.
 2. Create a branch named as `docs/agents/conventions.md` requires, with the `fix` type and the issue's number, from the default branch.
 3. Dispatch one **implementer sub-agent** at the effort the fix spec's effort line gives. Its brief gives the evidence rule and pointers: the issue number, the notes path and the branch. The implementer:
-   - calls the Skill tool with `tdd` and builds the fix by its `## Fixing a bug` rules, at the seam the fix spec's `## Regression test` names;
-   - starts from the reproduction in the notes;
+   - calls the Skill tool with `tdd` and builds the fix by its `## Fixing a bug` rules, at the testing seam and beside the tests the fix spec's `## Regression test` names;
+   - starts from the reproduction in the notes, and commits a reproduction written as a test only when it is the regression test;
    - runs the full suite, and commits to the branch following the repo's commit conventions;
    - puts any defect it finds outside the fix in its report, with its evidence, as `report-bug` describes for a sub-agent, and leaves it unfixed and unfiled;
    - reports back **under 200 words**, with the output `## Fixing a bug` says to keep.
