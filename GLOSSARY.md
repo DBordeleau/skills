@@ -74,6 +74,14 @@ _Avoid_: low-level seam, unit seam
 The shared setup that the tests at one testing seam use.
 _Avoid_: fixture, factory, test helper
 
+**Seams list**:
+The list in a spec's Testing Decisions section that gives each behaviour its testing seam and seam builder.
+_Avoid_: seams section, seam list, seam plan
+
+**Testing line**:
+The line in a ticket that repeats the testing seam and seam builder for the ticket's slice.
+_Avoid_: seam line, test line
+
 **Seam survey**:
 A pass over a repo's existing tests that proposes its testing seams for the user to confirm and reports what to clean up.
 _Avoid_: seam audit, test audit
