@@ -44,7 +44,7 @@ Give each ticket its **testing line**: the testing seam and the seam builder for
 - Find each seams-list item whose behaviour the ticket's slice builds, and write one testing line per item, in the form the templates below give. Copy the item's testing seam and seam builder as the spec words them, and its seam exception reason when it has one.
 - A fix spec has no seams list. Its tickets copy the testing seam and the seam builder from its `## Regression test`.
 - A ticket with no behaviour to test, such as a copy change, says so on its testing line.
-- When the spec has no seams list, or the slice builds a behaviour that no item covers, there is nothing to copy. Show that ticket's testing seam as missing in the breakdown, and ask the user to name it and its seam builder. The testing line copies their answer.
+- When the spec has no seams list, or the slice builds a behaviour that no item covers, there is nothing to copy. Before you present the breakdown, agree the missing testing seams with the user once, by step 2 of `## Process` in the `to-spec` skill. The testing lines copy the testing seams and seam builders the user confirms.
 
 ### 4. Quiz the user
 
@@ -52,7 +52,7 @@ Present the proposed breakdown as a numbered list. For each ticket, show:
 
 - **Title**: short descriptive name
 - **Effort**: `medium` or `high`, by the rule in `docs/agents/conventions.md`
-- **Testing seam**: each testing seam and seam builder from the ticket's testing line, or that it has no behaviour to test, or that it is missing
+- **Testing seam**: each testing seam and seam builder from the ticket's testing line, or that it has no behaviour to test
 - **Blocked by**: which other tickets (if any) must complete first
 - **What it delivers**: the end-to-end behaviour this ticket makes work
 
@@ -134,7 +134,7 @@ A ticket with no behaviour to test has one testing line:
 Testing seam: none. <why this ticket has no behaviour to test>.
 ```
 
-In either form, avoid specific file paths or code snippets: they go stale fast. The testing line is the exception, and names its testing seam as the spec does. Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it and note briefly that it came from a prototype. Trim to the decision-rich parts, not a working demo, just the important bits.
+In either form, avoid specific file paths or code snippets: they go stale fast. Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it and note briefly that it came from a prototype. Trim to the decision-rich parts, not a working demo, just the important bits.
 
 ---
 
