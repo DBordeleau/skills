@@ -33,7 +33,7 @@ The upper diagram is the feature path and the lower one is the bug path. They me
 
 **`/implement-spec`** builds a whole spec's ticket graph. It works the frontier across concurrent implementer sub-agents, each on its own worktree, and merges them onto one integration branch.
 
-**`code-review`** runs two reviews of the diff in parallel. Standards asks whether the code follows this repo's documented standards plus a fixed smell baseline. Spec asks whether the code does what the issue asked for. The two are reported side by side and never merged, so one cannot mask the other. Both implement skills call it before they finish.
+**`code-review`** runs two reviews of the diff in parallel. Standards asks whether the code follows this repo's documented standards plus a fixed smell baseline, and runs three test checks in every repo: a second test of one behaviour, a test that imports past the interface it tests, and setup copied from another test file. Spec asks whether the code does what the issue asked for, and whether each test sits at the testing seam the spec names. The two are reported side by side and never merged, so one cannot mask the other. Both implement skills call it before they finish.
 
 **`pr`** writes the PR body: a summary of what the change makes possible, before and after evidence, and a note on whether the merge is a one-way or two-way door.
 
@@ -54,7 +54,11 @@ Then you pick one exit:
 - **Not a bug**, for a missing feature or a design change. The issue loses its bug label and goes to `/plan-with-me`.
 - **Cannot reproduce**, when the investigator found no reproduction. The issue gets a comment saying what is missing and is marked as needing info. Answer on the issue and rerun `/diagnose`.
 
-A fix spec states the root cause, the fix and the regression test. `/implement` builds it on a `fix` branch at the seam the fix spec names, without asking about the seam again. When the regression test passes before the fix, or three attempts fail, the root cause is probably wrong. `/implement` then sends the issue back to `/diagnose` with the evidence. `code-review` checks a bug fix against its fix spec, including that the regression test exists and was seen to fail, and `pr` puts the test's real failing and passing output in the PR body.
+A fix spec states the root cause, the fix and the regression test. `/implement` builds it on a `fix` branch at the testing seam the fix spec names, without asking about it again. When the regression test passes before the fix, or three attempts fail, the root cause is probably wrong. `/implement` then sends the issue back to `/diagnose` with the evidence. `code-review` checks a bug fix against its fix spec, including that the regression test exists and was seen to fail, and `pr` puts the test's real failing and passing output in the PR body.
+
+## Where the testing seam is decided
+
+A testing seam is the seam a test goes through, and each behaviour gets its tests at one. You agree it once, in `/to-spec` for a feature or in `/diagnose` for a bug. It is then written in the spec's seams list, in each ticket's testing line, or in the fix spec's `## Regression test`. Implementers read it there and don't ask you again. `code-review` checks that every test in the diff sits at it. When a test lands at the wrong seam, check what was agreed, then what was written, then what the review reported.
 
 ## Starting from the codebase
 
