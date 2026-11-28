@@ -15,13 +15,15 @@ Tests verify behavior through public interfaces, not implementation details. Cod
 
 See [tests.md](tests.md) for examples and [mocking.md](mocking.md) for mocking guidelines.
 
-## Seams: where tests go
+## Testing seams: where tests go
 
-A **seam** is the public boundary you test at: the interface where you observe behavior without reaching inside. Tests live at seams, never against internals.
+A **seam** is the location where a module's interface lives, as codebase-design defines it. A **testing seam** is the seam a test goes through. A test observes behaviour through its testing seam and never reaches into the internals behind it.
 
-**Test only at pre-agreed seams.** Before writing any test, write down the seams under test and confirm them with the user. No test is written at an unconfirmed seam. You can't test everything, so agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.
+**The seam rule.** Each behaviour gets its tests at one testing seam: the highest one where a test can observe the behaviour and still run fast and deterministically. A lower seam gets tests only as a seam exception, for cases the higher seam can't reach at a reasonable cost, such as a large set of input combinations or an error path that is hard to trigger from above.
 
-Ask: "What's the public interface, and which seams should we test?" Give each proposed seam a one-line note on what it catches and what it misses.
+**Test only at pre-agreed testing seams.** Before writing any test, write down the testing seams under test and confirm them with the user. No test is written at an unconfirmed seam. You can't test everything, so agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.
+
+Ask: "What's the public interface, and which testing seams should we test at?" Give each proposed testing seam a one-line note on what it catches and what it misses.
 
 When the shape of that interface is itself in question (how deep the module is, where the seam belongs, what the interface should expose), call the Skill tool with "codebase-design" for the vocabulary. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms, and it is a reference to consult, not a session to run.
 
@@ -34,7 +36,7 @@ When the shape of that interface is itself in question (how deep the module is, 
 ## Rules of the loop
 
 - **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
-- **One slice at a time.** One seam, one test, one minimal implementation per cycle.
+- **One slice at a time.** One testing seam, one test, one minimal implementation per cycle.
 - **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.
 
 ## Fixing a bug

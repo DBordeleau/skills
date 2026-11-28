@@ -12,9 +12,13 @@ Read `docs/agents/issue-tracker.md`, `docs/agents/labels.md` and `docs/agents/co
 
 1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching.
 
-2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
+2. Sketch out the testing seams at which you're going to test the feature. A testing seam is the seam a test goes through, and a seam is the location where a module's interface lives. Choose them by the seam rule:
 
-Check with the user that these seams match their expectations.
+**The seam rule.** Each behaviour gets its tests at one testing seam: the highest one where a test can observe the behaviour and still run fast and deterministically. A lower seam gets tests only as a seam exception, for cases the higher seam can't reach at a reasonable cost, such as a large set of input combinations or an error path that is hard to trigger from above.
+
+The rule keeps the number of testing seams across the codebase low, and the ideal number is one. Prefer a testing seam the repo already has to a new one, and propose a new one only where no existing seam can observe the behaviour.
+
+Check with the user that these testing seams match their expectations.
 
 3. Call the Skill tool with `unslop`, write the spec using the template below, and apply its rules to every section before publishing. A spec is read by humans for months; the template's headings are a fixed format and stay as they are. Then publish it to the project issue tracker. Label it as a spec that is ready to implement (`docs/agents/labels.md` gives the strings), and remove the planning label if you are rewriting an issue that carried one. No further planning pass is needed.
 
