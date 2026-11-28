@@ -59,7 +59,7 @@ When the spec has no seams list, as with a spec written before seams lists exist
 
 > **The seam rule.** Each behaviour gets its tests at one testing seam: the highest one where a test can observe the behaviour and still run fast and deterministically. A lower seam gets tests only as a seam exception, for cases the higher seam can't reach at a reasonable cost, such as a large set of input combinations or an error path that is hard to trigger from above.
 
-Give each proposed testing seam a one-line note on what a test there catches and what it misses, and name its seam builder. Confirm them with the user before any test is written, and pass the confirmed testing seams in the brief.
+Give each proposed testing seam a one-line note on what a test there catches and what it misses, and name its seam builder. Confirm them with the user before any test is written. Before you brief any implementer, post the confirmed testing seams as a comment on the spec, written as a seams list in the form the `to-spec` template gives, so that `code-review` has them in writing. Then pass them in each brief.
 
 ### 5. Plan the slices
 
@@ -78,7 +78,7 @@ One slice, one sub-agent, serially (they share the working tree, so they cannot 
 
 On a fix spec, the brief also tells the implementer to follow `## Fixing a bug` in `tdd`, and to put the output those rules say to keep in its report.
 
-If an implementer reports something that changes the plan, re-plan the remaining slices before dispatching the next one. An implementer that reports its testing seam can't observe the behaviour has stopped without testing elsewhere. Take its report to the user, who decides the testing seam, before dispatching that slice again.
+If an implementer reports something that changes the plan, re-plan the remaining slices before dispatching the next one. When a testing seam an implementer was given can't observe the behaviour, the implementer stops and reports it. Take its report to the user, who decides the testing seam, before dispatching that slice again.
 
 ### 7. Open the PR
 
