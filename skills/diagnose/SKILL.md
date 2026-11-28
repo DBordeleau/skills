@@ -59,7 +59,7 @@ The findings say what is wrong and where. Ask the user to:
 2. choose which of the other places are in scope;
 3. confirm the regression test's testing seam and any seam exception, or approve the exception when no test can fail on the bug.
 
-Done when the user has answered all three in their own message. Their seam answer is the seam confirmation that `tdd` asks for. When they take a place into scope that the confirmed seam cannot reach, propose a seam for that place and wait for their confirmation of it too. When they correct the root cause or add a fact, dispatch a fresh investigator with the evidence rule, their words and the notes path, and come back to this step with its findings. Each place left out of scope becomes its own bug report in step 6.
+Done when the user has answered all three in their own message. When they take a place into scope that the confirmed testing seam cannot reach, place a regression test for that place as step 5 of [INVESTIGATE.md](INVESTIGATE.md) does, beside the existing tests of the behaviour that place breaks and at that behaviour's testing seam. Name their seam builder and the reason for any seam exception, and wait for the user to confirm it too. The fix spec's `## Regression test` names both. When they correct the root cause or add a fact, dispatch a fresh investigator with the evidence rule, their words and the notes path, and come back to this step with its findings. Each place left out of scope becomes its own bug report in step 6.
 
 ### 5. Agree the fix and the exit
 

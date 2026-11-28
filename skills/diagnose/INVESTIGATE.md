@@ -69,7 +69,7 @@ Search the repo's tracked files for the pattern the root cause follows: the expr
 
 The regression test goes beside the existing tests of the behaviour the bug broke, at that behaviour's testing seam. A bug is a case those tests missed, so the regression test joins them. Search the repo's tests for that behaviour, and note the testing seam they go through, the tests the new case joins, by file and test name, and the seam builder they use. When those tests share no setup, note that the fix creates the seam builder. The regression test is built from the minimised reproduction, and it can sit at a higher seam than the reproduction did.
 
-When the behaviour has no tests, the seam rule picks the seam:
+When the behaviour has no tests, the seam rule picks the testing seam:
 
 **The seam rule.** Each behaviour gets its tests at one testing seam: the highest one where a test can observe the behaviour and still run fast and deterministically. A lower seam gets tests only as a seam exception, for cases the higher seam can't reach at a reasonable cost, such as a large set of input combinations or an error path that is hard to trigger from above.
 

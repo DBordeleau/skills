@@ -126,14 +126,14 @@ A spec is not automatically a pile of tickets. Say which way to go and why, in t
 Recommend **`/to-tickets`** when any of these is true:
 
 - the work won't fit in one fresh context window;
-- it crosses more than one agreed seam, or more than one module's interface;
+- it crosses more than one agreed testing seam, or more than one module's interface;
 - it contains a **wide refactor**: one mechanical change whose blast radius fans across the codebase, so no single slice can land green;
 - part of it is independently demoable and you'd want it merged before the rest is written;
 - parts of it can be built concurrently without touching the same files.
 
 Recommend **`/implement`** (the spec as it stands) when none of them is:
 
-- one seam, one module, a handful of vertical slices;
+- one testing seam, one module, a handful of vertical slices;
 - nothing in it is worth a separate PR.
 
 Don't hedge. Pick one, name the reason that decided it, and name the runner-up only if it was close. If you recommend tickets, say roughly how many you expect and what the first one would be.

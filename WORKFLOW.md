@@ -69,7 +69,7 @@ A testing seam is the seam a test goes through, and each behaviour gets its test
 Other skills consult these. You do not run them as sessions.
 
 - **`unslop`** cuts AI tells from anything written for a human. Every skill that publishes prose invokes it, and so does any agent about to send a message. See [policy/global.md](policy/global.md).
-- **`tdd`** covers what a good test is, where seams go, the anti-patterns, and the rules of the loop from failing test to passing code. Its `## Fixing a bug` section adds the rules for a bug fix.
+- **`tdd`** covers what a good test is, where tests go, the anti-patterns, and the rules of the loop from failing test to passing code. Its `## Fixing a bug` section adds the rules for a bug fix.
 - **`domain-modeling`** builds and sharpens the glossary and the ADRs. `/plan-with-me` reaches it.
 - **`codebase-design`** holds the shared vocabulary for module depth, interfaces, seams and leverage.
 - **`writing-for-agents`** covers how to write a skill, an `AGENTS.md`, or a `CLAUDE.md`. Read it before changing anything in this repo.
