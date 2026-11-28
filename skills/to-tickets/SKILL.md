@@ -39,18 +39,27 @@ Give each ticket its **blocking edges**: the other tickets that must complete be
 
 **Wide refactors are the exception to vertical slicing.** A **wide refactor** is one mechanical change (rename a column, retype a shared symbol) whose **blast radius** fans across the whole codebase, so a single edit breaks thousands of call sites at once and no vertical slice can land green. Don't force it into a tracer bullet; sequence it as **expand–contract**. First expand: add the new form beside the old so nothing breaks. Then migrate the call sites over in batches sized by blast radius (per package, per directory), each batch its own ticket blocked by the expand, keeping CI green batch to batch because the old form still exists. Finally contract: delete the old form once no caller remains, in a ticket blocked by every migrate batch. When even the batches can't stay green alone, keep the sequence but let them share an integration branch that all block a final integrate-and-verify ticket; green is promised only there.
 
+Give each ticket its **testing line**: the testing seam and the seam builder for its slice, copied from the spec's seams list. Copy it and choose nothing. The user confirmed those testing seams when the spec was written, and a ticket that names another seam disagrees with its spec.
+
+- Find each seams-list item whose behaviour the ticket's slice builds, and write one testing line per item, in the form the templates below give. Copy the item's testing seam and seam builder as the spec words them, and its seam exception reason when it has one.
+- A fix spec has no seams list. Its tickets copy the testing seam and the seam builder from its `## Regression test`.
+- A ticket with no behaviour to test, such as a copy change, says so on its testing line.
+- When the spec has no seams list, or the slice builds a behaviour that no item covers, there is nothing to copy. Show that ticket's testing seam as missing in the breakdown, and ask the user to name it and its seam builder. The testing line copies their answer.
+
 ### 4. Quiz the user
 
 Present the proposed breakdown as a numbered list. For each ticket, show:
 
 - **Title**: short descriptive name
 - **Effort**: `medium` or `high`, by the rule in `docs/agents/conventions.md`
+- **Testing seam**: each testing seam and seam builder from the ticket's testing line, or that it has no behaviour to test, or that it is missing
 - **Blocked by**: which other tickets (if any) must complete first
 - **What it delivers**: the end-to-end behaviour this ticket makes work
 
 Ask the user:
 
 - Does the granularity feel right? (too coarse / too fine)
+- Does each ticket carry the testing seam its slice is tested at?
 - Are the blocking edges correct: does each ticket only depend on tickets that genuinely gate it?
 - Should any tickets be merged or split further?
 
@@ -75,6 +84,8 @@ Do NOT close or modify any parent issue.
 
 Effort: <medium|high>
 
+Testing seam: <module>, through <its interface>. Seam builder: <seam builder>.
+
 **What to build:** the end-to-end behaviour this ticket makes work, from the user's perspective, not a layer-by-layer implementation list.
 
 **Blocked by:** the numbers/titles of the tickets that gate this one, or "None (can start immediately)".
@@ -89,6 +100,8 @@ Effort: <medium|high>
 <issue-template>
 
 Effort: <medium|high>
+
+Testing seam: <module>, through <its interface>. Seam builder: <seam builder>.
 
 ## Parent
 
@@ -109,7 +122,19 @@ The end-to-end behaviour this ticket makes work, from the user's perspective, no
 
 </issue-template>
 
-In either form, avoid specific file paths or code snippets: they go stale fast. Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it and note briefly that it came from a prototype. Trim to the decision-rich parts, not a working demo, just the important bits.
+The testing line sits below the effort line in both templates, one line per seams-list item the slice builds. `Seam builder` reads `created by this work` when the spec's item does. An item that is a seam exception ends its line with the reason:
+
+```
+Testing seam: <module>, through <its interface>. Seam builder: <seam builder>. Seam exception: <reason>.
+```
+
+A ticket with no behaviour to test has one testing line:
+
+```
+Testing seam: none. <why this ticket has no behaviour to test>.
+```
+
+In either form, avoid specific file paths or code snippets: they go stale fast. The testing line is the exception, and names its testing seam as the spec does. Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it and note briefly that it came from a prototype. Trim to the decision-rich parts, not a working demo, just the important bits.
 
 ---
 
