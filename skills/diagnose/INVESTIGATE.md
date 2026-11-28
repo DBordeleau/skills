@@ -16,7 +16,7 @@ A reproduction is a check you ran and saw fail on the exact symptom the bug repo
 
 Ways to build one, roughly in this order:
 
-1. A failing test at the nearest seam that reaches the bug.
+1. A failing test at any level that reaches the bug, down to the broken function itself. Step 5 places the regression test separately, so this test can sit lower than the one that gets committed.
 2. A script that sends requests to a running dev server.
 3. A CLI run on a fixture input, diffed against known-good output.
 4. A headless browser script that drives the UI and asserts on the page, the console or the network.
@@ -43,7 +43,7 @@ When you cannot build one, stop here. Write what you tried, and what would let y
 
 Confirm first that the failure is the one the bug report describes and not a different failure nearby, and that it repeats.
 
-Then cut inputs, callers, config, data and steps one at a time, rerunning the reproduction after each cut, and keep only what the failure needs. The smaller case leaves fewer suspects for step 3, and it becomes the regression test. Keep the original, unminimised reproduction in the notes too, because the fix is checked against it.
+Then cut inputs, callers, config, data and steps one at a time, rerunning the reproduction after each cut, and keep only what the failure needs. The smaller case leaves fewer suspects for step 3, and the regression test is built from it. Keep the original, unminimised reproduction in the notes too, because the fix is checked against it.
 
 **Done when** every remaining element is load-bearing: removing any one of them turns the reproduction green.
 
@@ -53,7 +53,7 @@ When the minimised reproduction points straight at one place, and the chain from
 
 Otherwise, write **3 to 5 ranked hypotheses** before testing any of them. Each states its prediction: "If X is the cause, then changing Y turns the reproduction green, and changing Z makes the failure worse." A hypothesis with no prediction cannot be ruled out, so sharpen it or drop it.
 
-Test them in rank order. Each probe tests one prediction, and changes one variable at a time. Use a debugger or a REPL first, and targeted logs at the boundaries that tell two hypotheses apart second. Tag every debug log with one unique prefix, such as `[DEBUG-a4f2]`, and grep for it before you report, so none of them reaches the notes as if it were the code. For a slow path, measure a baseline first, then bisect.
+Test them in rank order. Each probe tests one prediction, and changes one variable at a time. Use a debugger or a REPL first, and targeted logs at the seams that tell two hypotheses apart second. Tag every debug log with one unique prefix, such as `[DEBUG-a4f2]`, and grep for it before you report, so none of them reaches the notes as if it were the code. For a slow path, measure a baseline first, then bisect.
 
 Record each hypothesis you rule out with the evidence against it.
 
@@ -67,11 +67,19 @@ Search the repo's tracked files for the pattern the root cause follows: the expr
 
 ## 5. Place the regression test
 
-Name the nearest seam where a test built from the minimised reproduction fails on the bug. The seam must exercise the bug as it happens at the call site. A seam too shallow to replay the chain that triggers the bug, such as one caller when the bug needs two, gives a test that passes while the bug survives. When no seam can fail on the bug, say so and why: that is a finding the user approves or rejects.
+The regression test goes beside the existing tests of the behaviour the bug broke, at that behaviour's testing seam. A bug is a case those tests missed, so the regression test joins them. Search the repo's tests for that behaviour, and note the testing seam they go through, the tests the new case joins, by file and test name, and the seam builder they use. When those tests share no setup, note that the fix creates the seam builder. The regression test is built from the minimised reproduction, and it can sit at a higher seam than the reproduction did.
+
+When the behaviour has no tests, the seam rule picks the testing seam:
+
+**The seam rule.** Each behaviour gets its tests at one testing seam: the highest one where a test can observe the behaviour and still run fast and deterministically. A lower seam gets tests only as a seam exception, for cases the higher seam can't reach at a reasonable cost, such as a large set of input combinations or an error path that is hard to trigger from above.
+
+A regression test below the behaviour's testing seam is a seam exception. Propose one only when the bug is such a case, and write its reason in the notes.
+
+The seam must replay the bug as it happens at the call site. A seam too shallow to replay the chain that triggers the bug, such as one caller when the bug needs two, gives a test that passes while the bug survives. When no seam can fail on the bug, say so and why: that is a finding the user approves or rejects.
 
 Note two facts for the fix spec's effort line: whether an existing test covers the code the root cause sits in, and whether the root cause crosses modules.
 
-**Done when** the notes name one seam, or say why none can fail on the bug, and answer both effort questions.
+**Done when** the notes name one testing seam, the tests the new case joins and their seam builder, with the reason for any seam exception, or say why no seam can fail on the bug, and answer both effort questions.
 
 ## Notes and report
 

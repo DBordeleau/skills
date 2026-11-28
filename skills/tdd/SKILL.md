@@ -5,7 +5,7 @@ description: Test-driven development. Use when the user wants to build features 
 
 # Test-Driven Development
 
-TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, the rules of the loop, and the rules for fixing a bug. Every section but `## Fixing a bug` applies on every cycle, and that one applies on every cycle of a bug fix: consult them before and during the loop, not after.
+TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, where their setup comes from, the anti-patterns, the rules of the loop, and the rules for fixing a bug. Every section but `## Fixing a bug` applies on every cycle, and that one applies on every cycle of a bug fix: consult them before and during the loop, not after.
 
 When exploring the codebase, read `GLOSSARY.md` (if it exists) so test names and interface vocabulary match the project's domain language, and respect ADRs in the area you're touching.
 
@@ -15,15 +15,21 @@ Tests verify behavior through public interfaces, not implementation details. Cod
 
 See [tests.md](tests.md) for examples and [mocking.md](mocking.md) for mocking guidelines.
 
-## Seams: where tests go
+## Testing seams: where tests go
 
-A **seam** is the public boundary you test at: the interface where you observe behavior without reaching inside. Tests live at seams, never against internals.
+A **seam** is the location where a module's interface lives, as codebase-design defines it. A **testing seam** is the seam a test goes through. A test observes behaviour through its testing seam and never reaches into the internals behind it.
 
-**Test only at pre-agreed seams.** Before writing any test, write down the seams under test and confirm them with the user. No test is written at an unconfirmed seam. You can't test everything, so agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.
+**The seam rule.** Each behaviour gets its tests at one testing seam: the highest one where a test can observe the behaviour and still run fast and deterministically. A lower seam gets tests only as a seam exception, for cases the higher seam can't reach at a reasonable cost, such as a large set of input combinations or an error path that is hard to trigger from above.
 
-Ask: "What's the public interface, and which seams should we test?" Give each proposed seam a one-line note on what it catches and what it misses.
+**Test only at agreed testing seams.** The agreement arrives in writing: a ticket's testing line, a spec's seams list, or a fix spec's `## Regression test`. When one of them names the testing seam, write every test there and don't ask the user again. When none of them names one, write down the testing seams under test and confirm them with the user before any test is written. Ask: "What's the public interface, and which testing seams should we test at?" Give each proposed testing seam a one-line note on what it catches and what it misses.
 
 When the shape of that interface is itself in question (how deep the module is, where the seam belongs, what the interface should expose), call the Skill tool with "codebase-design" for the vocabulary. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms, and it is a reference to consult, not a session to run.
+
+## Existing tests and the seam builder
+
+- **Search before you write.** Before writing a test, search the tests at the agreed testing seam for the behaviour: the interface it goes through, and the domain terms a test of it would be named with. When a test of the behaviour exists, change that test to cover the new case. Add a new test only when the search finds none. Two tests of one behaviour make the next change to it edit both.
+- **A test states inline only the values it asserts on.** Every other value it needs, such as seed rows, config and required inputs, comes from the seam builder: the shared setup the tests at that testing seam use. The ticket or spec names it beside the testing seam. A reader still sees in the test the data each assertion depends on, and a new required input changes the seam builder and no test file.
+- **Extend the seam builder when it lacks something.** Add the missing input to the seam builder, with a default the other tests can share, and use it from there. Setup copied into a test file is a private copy that the next new input has to reach file by file. When the testing seam has no seam builder yet, create one beside its tests and have the first test use it.
 
 ## Anti-patterns
 
@@ -34,7 +40,7 @@ When the shape of that interface is itself in question (how deep the module is, 
 ## Rules of the loop
 
 - **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
-- **One slice at a time.** One seam, one test, one minimal implementation per cycle.
+- **One slice at a time.** One testing seam, one test, one minimal implementation per cycle.
 - **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.
 
 ## Fixing a bug

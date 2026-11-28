@@ -45,11 +45,21 @@ Dispatch one **exploration sub-agent** for whatever the work needs: the relevant
 
 The notes are the shared context for every later sub-agent. Skip this step only for work so small that one sub-agent will see all of it anyway.
 
-### 4. Agree the seams
+### 4. Read the testing seams
 
-From the notes, propose the **seams** the work will be tested at, one line each on what each catches and what it misses. Prefer existing seams; use the highest seam available; the fewer the better. Confirm them with the user before any test is written.
+The user confirmed the testing seams when the spec was written, and they arrive in writing. Read them and pass them in each implementer's brief, without asking the user again:
 
-A fix spec settles its seam already: `## Regression test` names it, and the user confirmed it with the root cause in `/diagnose`. Use that seam and go on to step 5 without asking.
+- A ticket's testing line names the testing seam and seam builder for its slice.
+- A spec's seams list, in its Testing Decisions section, names them for every behaviour the spec touches. A ticket with no testing line takes them from its spec's seams list.
+- A fix spec's `## Regression test` names its testing seam, and the user confirmed it with the root cause in `/diagnose`.
+
+Go on to step 5 once each behaviour the work builds has its testing seam.
+
+When the spec has no seams list, as with a spec written before seams lists existed, agree the testing seams with the user once, here. From the notes, propose a testing seam for each behaviour the work touches, preferring the one its existing tests go through, and choose by the seam rule:
+
+> **The seam rule.** Each behaviour gets its tests at one testing seam: the highest one where a test can observe the behaviour and still run fast and deterministically. A lower seam gets tests only as a seam exception, for cases the higher seam can't reach at a reasonable cost, such as a large set of input combinations or an error path that is hard to trigger from above.
+
+Give each proposed testing seam a one-line note on what a test there catches and what it misses, and name its seam builder. Confirm them with the user before any test is written. Before you brief any implementer, post the confirmed testing seams as a comment on the spec, written as a seams list in the form the `to-spec` template gives, so that `code-review` has them in writing. Then pass them in each brief.
 
 ### 5. Plan the slices
 
@@ -59,16 +69,16 @@ Break the work into **vertical slices**, each a tracer bullet: a narrow but comp
 
 One slice, one sub-agent, serially (they share the working tree, so they cannot run in parallel). When the spec or ticket opens with an effort line, give each implementer that effort, as `docs/agents/conventions.md` maps it. Each implementer:
 
-- gets pointers only: the ticket, the notes path, the agreed seams, the slice, the branch;
-- calls the Skill tool with `tdd` and builds the slice test-first at those seams;
+- gets pointers only: the ticket, the notes path, the testing seams from step 4, the slice, the branch;
+- calls the Skill tool with `tdd` and builds the slice test-first at those testing seams;
 - runs the typechecker and the slice's own tests itself, until green;
 - commits to the branch, following the repo's commit conventions;
 - puts any defect it finds outside its slice in its report, with its evidence, as `report-bug` describes for a sub-agent, and leaves it unfixed and unfiled;
-- reports back **under 200 words**: what it built, what it committed, which seams it tested, anything it hit that changes the plan.
+- reports back **under 200 words**: what it built, what it committed, which testing seams it tested, anything it hit that changes the plan.
 
 On a fix spec, the brief also tells the implementer to follow `## Fixing a bug` in `tdd`, and to put the output those rules say to keep in its report.
 
-If an implementer reports something that changes the plan, re-plan the remaining slices before dispatching the next one.
+If an implementer reports something that changes the plan, re-plan the remaining slices before dispatching the next one. When a testing seam an implementer was given can't observe the behaviour, the implementer stops and reports it. Take its report to the user, who decides the testing seam, before dispatching that slice again.
 
 ### 7. Open the PR
 

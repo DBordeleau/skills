@@ -5,8 +5,8 @@ description: "Review the changes since a fixed point (commit, branch, tag, or me
 
 Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 
-- **Standards**: does the code conform to this repo's documented coding standards?
-- **Spec**: does the code faithfully implement the originating issue / spec?
+- **Standards**: does the code conform to this repo's documented coding standards, and do its tests pass the test checks?
+- **Spec**: does the code faithfully implement the originating issue / spec, with each test at the testing seam the spec names?
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings. Start every sub-agent with a fresh context window.
 
@@ -55,6 +55,12 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 - **Middle Man**: a class or function that mostly just delegates onward. → cut it, call the real target direct.
 - **Refused Bequest**: a subclass or implementer that ignores or overrides most of what it inherits. → drop the inheritance, use composition.
 
+The Standards axis also carries the **test checks** below. These checks apply in every repo. They don't depend on a repo's documented coding standards. They are not smells. A failed test check is a hard violation. Match each against every test the diff adds or edits:
+
+- **Second test of a behaviour**: a behaviour the change tests at a second testing seam with no seam exception named for it. At the same testing seam, the check flags only a new test that asserts what an existing test already asserts, where tdd changes that test instead. A case the existing tests don't cover, such as a regression test beside them, is not a finding. → move the case into the existing test, or name the seam exception in the spec.
+- **Test past the interface**: a test that reaches into the internals of the module it tests, such as an internal file or a private helper. A test that imports a dependency to hand the module a fake or an in-memory adapter is not a finding. → rewrite it to go through the interface of its testing seam.
+- **Copied setup**: setup in a test file that copies setup from another test file. → move it into the seam builder of that testing seam, and have both files use it.
+
 ### 4. Spawn both sub-agents in parallel
 
 Issue both sub-agent calls together, in the foreground, and aggregate the reports they return.
@@ -62,18 +68,19 @@ Issue both sub-agent calls together, in the foreground, and aggregate the report
 **Standards sub-agent prompt** should include:
 
 - The full diff command and commit list.
-- The list of standards-source files you found in step 3, **plus the smell baseline from step 3** pasted in full (the sub-agent has no other access to it).
-- The brief: "Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, but baseline smells are always judgement calls, and a documented repo standard overrides the baseline. Skip anything tooling enforces. List separately, under "Older than the diff", any defect you notice that the diff did not introduce, with its evidence, as the `report-bug` skill describes for a sub-agent. Under 400 words."
+- The list of standards-source files you found in step 3, **plus the smell baseline and the test checks from step 3** pasted in full (the sub-agent has no other access to them).
+- The path of the spec from step 2, if there is one, as the place seam exceptions are named: the ticket's testing line, the spec's seams list, or the fix spec's `## Regression test`.
+- The brief: "Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); (b) any baseline smell you spot: name it and quote the hunk; and (c) every test check the diff's tests fail: name the check, quote the test, and for a copied setup or a second test of a behaviour, name the other test file. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, and a failed test check is a hard violation. Baseline smells are always judgement calls. A documented repo standard overrides the baseline. Skip anything tooling enforces. List separately, under "Older than the diff", any defect you notice that the diff did not introduce, with its evidence, as the `report-bug` skill describes for a sub-agent. Under 400 words."
 
 **Spec sub-agent prompt** should include:
 
 - The diff command and commit list.
 - The path or fetched contents of the spec.
-- The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. List separately, under "Older than the diff", any defect you notice that the diff did not introduce, with its evidence, as the `report-bug` skill describes for a sub-agent. Under 400 words."
+- The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong; and (d) every test the diff adds or edits that sits at a testing seam other than the one its ticket's testing line, the spec's seams list, or the fix spec's `## Regression test` names for the behaviour it tests. A seam exception listed there counts as named. When the spec's body has no seams list, read the spec's comments for one, where `/implement` records the testing seams it agreed. Quote the spec line for each finding. List separately, under "Older than the diff", any defect you notice that the diff did not introduce, with its evidence, as the `report-bug` skill describes for a sub-agent. Under 400 words."
 
 A **fix spec** is a spec labelled Bug, or marked `**Type:** bug` on a local tracker, whose body opens with an effort line and has `## Root cause` and `## Regression test`. A ticket whose parent is a fix spec counts as one, and takes those sections from its parent.
 
-When the spec is a fix spec, the Spec sub-agent also gets the PR number when a PR exists, and the implementers' reports when your caller passed them. Add to its brief: "(d) the fix against the fix spec: the change sits at the code `## Root cause` names and in the places `## Fix` lists, and a change at the symptom instead is a finding; the regression test `## Regression test` describes is in the diff, at that seam, asserting on the symptom `## Problem` describes; and its failing output from before the fix is in the PR body's `## Evidence` or in an implementer's report. A missing regression test or missing failing output is a finding. When the fix spec records that no test can fail on the bug, look for the original reproduction's failing output instead."
+When the spec is a fix spec, the Spec sub-agent also gets the PR number when a PR exists, and the implementers' reports when your caller passed them. Add to its brief: "(e) the fix against the fix spec: the change sits at the code `## Root cause` names and in the places `## Fix` lists, and a change at the symptom instead is a finding; the regression test `## Regression test` describes is in the diff, asserting on the symptom `## Problem` describes; and its failing output from before the fix is in the PR body's `## Evidence` or in an implementer's report. A missing regression test or missing failing output is a finding. When the fix spec records that no test can fail on the bug, look for the original reproduction's failing output instead."
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
 

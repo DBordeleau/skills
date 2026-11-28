@@ -51,3 +51,45 @@ _Avoid_: overrides, local config, user settings
 **Tool mapping**:
 The description of how one tool takes an implementer type: where the definition goes, what it looks like, what the tool can't set, and whether anyone has checked it on a real run.
 _Avoid_: adapter, tool config
+
+### Testing seams
+
+**Seam**:
+The location where a module's interface lives.
+_Avoid_: boundary
+
+**Testing seam**:
+The seam a test goes through. A repo agrees its testing seams with the user, and a behaviour gets its tests at one of them.
+_Avoid_: test level, test layer, test boundary
+
+**Testing seams file**:
+A repo's list of the testing seams the user has agreed to, kept at the repo's root as `TESTING-SEAMS.md`.
+_Avoid_: seam registry, seams document, seam list
+
+**Seam exception**:
+A testing seam below a module's main one, listed with the reason it earns tests of its own.
+_Avoid_: low-level seam, unit seam
+
+**Seam builder**:
+The shared setup that the tests at one testing seam use.
+_Avoid_: fixture, factory, test helper
+
+**Seams list**:
+The list in a spec's Testing Decisions section that gives each behaviour its testing seam and seam builder.
+_Avoid_: seams section, seam list, seam plan
+
+**Testing line**:
+The line in a ticket that repeats the testing seam and seam builder for the ticket's slice.
+_Avoid_: seam line, test line
+
+**Seam survey**:
+A pass over a repo's existing tests that proposes its testing seams for the user to confirm and reports what to clean up.
+_Avoid_: seam audit, test audit
+
+**Seam retirement**:
+Ending the use of a testing seam. Its tests move to the testing seam that survives, or are deleted once a break check passes.
+_Avoid_: seam removal, test consolidation
+
+**Break check**:
+Breaking a behaviour on purpose to see a test at the surviving testing seam fail, done before a lower test of that behaviour is deleted.
+_Avoid_: mutation test, coverage check

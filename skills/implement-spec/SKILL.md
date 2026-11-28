@@ -32,8 +32,9 @@ You are the orchestrator: you hold the task graph and the pointers, not the code
 
 3. Create the integration branch, named as `docs/agents/conventions.md` requires. If the issue tracker closes work through PRs, or the user asks for one, open a draft PR after the first merge in step 5 (a branch with no commits ahead of main can't open one), marked as closing the tickets in scope. It closes the spec too only when the scope leaves none of its tickets open; otherwise it references the spec.
 
-4. Use a fresh **implementer subagent** for each ticket, each in its own worktree on its own branch. Each implementer subagent:
+4. Use a fresh **implementer subagent** for each ticket, each in its own worktree on its own branch. Point each brief at its ticket's testing line, which names the testing seam and seam builder the user confirmed for that slice. Each implementer subagent:
    - confirms its worktree is based on the integration branch before starting, and resets onto it if not;
+   - reads its ticket's testing line and tests only at the testing seams it names. When a testing seam it was given can't observe the behaviour, the subagent stops and reports it, and you take its report to the user, who decides the testing seam;
    - calls the Skill tool with `tdd` to build the ticket, following its `## Fixing a bug` rules when the spec is a fix spec, and putting the output those rules say to keep in its report;
    - puts any defect it finds outside its ticket in its report, with its evidence, as `report-bug` describes for a subagent, and leaves it unfixed and unfiled;
    - merges the integration branch tip into its own branch before reporting done
